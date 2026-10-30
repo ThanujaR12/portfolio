@@ -5,6 +5,18 @@ export type EnvIssue = { level: "error" | "warn"; message: string };
 
 type Env = Record<string, string | undefined>;
 
+/** Trims whitespace around every value in place; returns the keys that changed. */
+export function trimEnv(env: Env): string[] {
+  const changed: string[] = [];
+  for (const [key, value] of Object.entries(env)) {
+    if (typeof value === "string" && value !== value.trim()) {
+      env[key] = value.trim();
+      changed.push(key);
+    }
+  }
+  return changed;
+}
+
 export function envReport(env: Env, production: boolean): EnvIssue[] {
   const issues: EnvIssue[] = [];
   const missing = (...keys: string[]) => keys.filter((k) => !env[k]);

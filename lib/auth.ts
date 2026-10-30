@@ -30,7 +30,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt", maxAge: 8 * 60 * 60 },
   pages: { signIn: "/admin/signin", error: "/admin/signin" },
   providers: [
-    GitHub,
+    // Trimmed explicitly too: a newline pasted after the id makes GitHub answer 404.
+    GitHub({
+      clientId: process.env.AUTH_GITHUB_ID?.trim(),
+      clientSecret: process.env.AUTH_GITHUB_SECRET?.trim(),
+    }),
     ...(devLoginEnabled
       ? [
           Credentials({

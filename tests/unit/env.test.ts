@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { envReport } from "@/lib/env";
+import { envReport, trimEnv } from "@/lib/env";
+
+describe("trimEnv", () => {
+  it("trims pasted whitespace and reports which keys changed", () => {
+    const env: Record<string, string | undefined> = { A: "Ov23abc\n", B: " x ", C: "clean", D: undefined };
+    expect(trimEnv(env)).toEqual(["A", "B"]);
+    expect(env).toEqual({ A: "Ov23abc", B: "x", C: "clean", D: undefined });
+  });
+});
 
 const full = {
   AUTH_SECRET: "x",
