@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
 vi.mock("next-auth", () => ({ default: () => ({}) }));
-vi.mock("next-auth/providers/github", () => ({ default: {} }));
+vi.mock("next-auth/providers/github", () => ({ default: () => ({}) }));
 vi.mock("next-auth/providers/credentials", () => ({ default: () => ({}) }));
 
 import { excerptReadme, type RepoSnapshot } from "@/lib/github/repos";
