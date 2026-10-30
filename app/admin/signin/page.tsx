@@ -20,7 +20,9 @@ export const metadata: Metadata = { title: "Admin sign-in", robots: { index: fal
 
 const MESSAGES: Record<string, string> = {
   AccessDenied: "That GitHub account isn't allowed to manage this portfolio.",
-  Configuration: "Sign-in isn't configured yet. Add the GitHub OAuth keys to the environment.",
+  // Auth.js reports both missing keys and keys GitHub rejects as "Configuration".
+  Configuration:
+    "Sign-in couldn't complete. Check that AUTH_GITHUB_ID and AUTH_GITHUB_SECRET match your GitHub OAuth app; the server logs show GitHub's exact reason.",
   SessionExpired: "Your session expired. Sign in again to keep editing.",
 };
 
