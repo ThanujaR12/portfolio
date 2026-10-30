@@ -162,9 +162,24 @@
     {
       "slug": "portfolio",
       "title": "Thanuja's Digital Portfolio",
-      "highlights": [],
-      "tags": [],
-      "demoUrl": null,
+      "summary": "This site: a fast portfolio with an AI guide that answers questions about my work, synced from GitHub",
+      "role": "Designer & full-stack developer",
+      "highlights": [
+        "Ask AI guide that answers only from my portfolio and cites its sources",
+        "Projects sync from GitHub; I curate them in a drag-and-drop admin",
+        "Perfect 100 Lighthouse scores for performance, accessibility and SEO",
+        "Built spec-first with Spec Kit and Claude Code"
+      ],
+      "tags": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Tailwind CSS",
+        "Gemini",
+        "Auth.js"
+      ],
+      "demoUrl": "https://portfolio-theta-six-fvpvx03u2x.vercel.app",
+      "year": 2026,
       "screenshots": [],
       "id": 1440288517,
       "repoName": "portfolio",
@@ -192,7 +207,7 @@
         "needs-content"
       ],
       "firstSeenAt": "2026-10-30T23:30:39.539Z",
-      "updatedAt": "2026-10-30T23:37:38.555Z"
+      "updatedAt": "2026-10-30T23:40:56.727Z"
     }
   ]
 }
