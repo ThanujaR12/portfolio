@@ -23,7 +23,7 @@ description: "Task list for the Developer Portfolio"
 - [x] T001 Scaffold Next.js 15 + TypeScript + Tailwind v4 App Router app at repo root (`package.json`, `tsconfig.json`, `next.config.ts`, `app/`), keeping `.specify/` and `specs/`
 - [x] T002 [P] Add ESLint + Prettier config and `npm run lint`/`format` scripts
 - [x] T003 [P] Add Vitest (`vitest.config.ts`, `tests/unit/`) and Playwright + axe (`playwright.config.ts`, `tests/e2e/`) with `test`/`test:e2e` scripts
-- [ ] T004 [P] Create `.env.example` listing every variable from quickstart.md, and `lib/env.ts` validating them with zod (optional ones may be absent in dev) _(partial: `.env.example` done; `lib/env.ts` validation lands with the first service that needs secrets)_
+- [x] T004 [P] Create `.env.example` listing every variable from quickstart.md, and `lib/env.ts` validating them with zod (optional ones may be absent in dev)
 - [x] T005 [P] Add `.claude/launch.json` dev-server config (`npm run dev`, port 3000)
 
 ---
@@ -117,9 +117,9 @@ description: "Task list for the Developer Portfolio"
 
 ## Phase 8: Polish & cross-cutting
 
-- [ ] T048 [P] Lighthouse CI config (`lighthouserc.json`, `npm run lhci`) with 0.9 thresholds on `/` and one case study; fix any regressions
-- [ ] T049 [P] `README.md`: what it is, setup (free keys), how to curate, deploy to Vercel
-- [ ] T050 Run every quickstart.md scenario (V1–V12) in the browser at 375px and 1280px and fix issues
+- [x] T048 [P] Lighthouse gate (`scripts/lighthouse.mjs`, `npm run lighthouse`) with 0.9 thresholds on `/` and one case study; fix any regressions
+- [x] T049 [P] `README.md`: what it is, setup (free keys), how to curate, deploy to Vercel
+- [x] T050 Run every quickstart.md scenario (V1–V12) in the browser at 375px and 1280px and fix issues
 
 ---
 
@@ -138,3 +138,17 @@ description: "Task list for the Developer Portfolio"
 2. Add US2 (case studies) → the portfolio is shareable.
 3. Add US3 (AI), US4 (admin), US5 (resume/contact) in priority order, validating each.
 4. Polish and the full quickstart run before any public deploy.
+
+## Validation results (2026-10-30)
+
+| Scenario | How verified | Result |
+|---|---|---|
+| V1–V3 Home, filters, keyboard | `tests/e2e/home.spec.ts` (desktop + phone, axe, reduced motion) + keyboard walk-through (tab order, visible focus, nothing hidden under the nav, nav jumps mark the active section) | Pass |
+| V4–V5 Case study, 404 | `tests/e2e/case-study.spec.ts` | Pass |
+| V6–V8 Ask AI | `tests/e2e/chat.spec.ts` (offline provider; 429 mocked) | Pass |
+| V9–V10 Admin | `tests/e2e/admin.spec.ts` (dev login; every admin route 401 without session) | Pass |
+| V11 Resume, contact | `tests/e2e/contact.spec.ts` + resume upload in admin suite | Pass |
+| V12 Lighthouse (mobile) | `npm run lighthouse` on a production build: `/`, `/projects/paletteboard`, `/resume` | 100 / 100 / 100 / 100 each |
+
+Not verifiable locally until deployment: real GitHub OAuth sign-in, Gemini answers, Resend delivery,
+Upstash limits and the Vercel cron (each has a tested fallback; `[env]` logs list what's missing).

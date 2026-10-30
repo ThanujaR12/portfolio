@@ -19,8 +19,24 @@ export default async function HomePage() {
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
     .map((s) => s.name);
 
+  // schema.org Person: helps search engines connect the name to these profiles.
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const person = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.name,
+    description: profile.positioning,
+    url: siteUrl,
+    sameAs: [profile.links.github, profile.links.linkedin].filter(Boolean),
+    knowsAbout: technologies.slice(0, 12),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}
+      />
       <Hero profile={profile} stats={stats} />
 
       {featured.length > 0 && (

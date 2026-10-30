@@ -48,6 +48,14 @@
   }
 }
 
+/* Denser glass for the sticky nav so text scrolling underneath never competes with links. */
+@utility glass-nav {
+  background: rgb(11 16 32 / 0.78);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+}
+
 @utility text-gradient {
   background: linear-gradient(90deg, var(--color-cyan), var(--color-violet));
   -webkit-background-clip: text;

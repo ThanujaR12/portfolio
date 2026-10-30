@@ -69,7 +69,7 @@ export function GlassNav({ name }: { name: string }) {
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6">
       <nav
         aria-label="Main"
-        className="glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-3 py-2 sm:px-4"
+        className="glass-nav mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-3 py-2 sm:px-4"
       >
         <Link
           href="/"
@@ -145,7 +145,7 @@ export function GlassNav({ name }: { name: string }) {
         <div
           id="mobile-menu"
           ref={menuRef}
-          className="glass mx-auto mt-2 max-w-6xl rounded-2xl p-2 md:hidden"
+          className="glass-nav mx-auto mt-2 max-w-6xl rounded-2xl p-2 md:hidden"
         >
           <ul className="flex flex-col">
             {[...SECTIONS, { id: "resume", label: "Resume" }].map((s) => (

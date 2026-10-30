@@ -22,7 +22,7 @@ export function HeroAsk({ suggestions }: { suggestions: string[] }) {
           e.preventDefault();
           ask(question);
         }}
-        className="glass glow-hover flex items-center gap-2 rounded-2xl p-1.5 pl-4 hover:transform-none"
+        className="glass glow-hover flex items-center gap-2 rounded-2xl p-1.5 pl-4 focus-within:ring-2 focus-within:ring-cyan/60 hover:transform-none"
       >
         <span aria-hidden="true" className="font-mono text-sm text-cyan">
           &gt;_

@@ -16,7 +16,8 @@ npm install
 npm run dev          # http://localhost:3000
 npm test             # vitest unit
 npm run test:e2e     # playwright (uses AI_PROVIDER=mock, CONTENT_SOURCE=fs)
-npm run lhci         # lighthouse on / and /projects/paletteboard
+npm run build && npm start -- -p 3001   # then, in another terminal:
+npm run lighthouse   # mobile audit of /, a case study and /resume; fails below 90
 ```
 
 ## Validation scenarios
@@ -34,4 +35,4 @@ npm run lhci         # lighthouse on / and /projects/paletteboard
 | V9 | US4 | Visit `/admin` signed out; sign in with a non-owner GitHub account | Redirect to sign-in; AccessDenied |
 | V10 | US4 | Sign in as owner, "Sync now", drag new repo Pending → Published, star it, add summary + screenshot | Appears in Featured on `/` within 60s; commit visible in repo history |
 | V11 | US5 | `/resume` → Download; submit contact form valid + invalid | PDF downloads; success toast; field errors shown, nothing sent |
-| V12 | All | `npm run lhci` | ≥ 0.90 in Performance, Accessibility, Best Practices, SEO |
+| V12 | All | `npm run lighthouse` (against `npm start -- -p 3001`) | ≥ 0.90 in Performance, Accessibility, Best Practices, SEO |

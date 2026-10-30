@@ -3,9 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import dynamic from "next/dynamic";
 import { OPEN_CHAT_EVENT, openChat, type OpenChatDetail } from "@/components/chat/events";
 import { useChat, type Message } from "@/components/chat/useChat";
+
+// The Markdown renderer is only needed once a conversation starts, so it stays out of the
+// bundle every visitor downloads.
+const ReactMarkdown = dynamic(() => import("react-markdown"), {
+  loading: () => null,
+});
 
 // Floating Ask AI button + side panel (bottom sheet on phones). FR-013 – FR-017.
 export function ChatLauncher({ name, suggestions }: { name: string; suggestions: string[] }) {
@@ -39,6 +45,8 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
   // Ask the question the panel was opened with (hero box, suggestion chips).
   useEffect(() => {
     if (!open) return;
+    // Warm the Markdown chunk while the first answer is being generated.
+    void import("react-markdown");
     if (pending.current) {
       const question = pending.current;
       pending.current = undefined;
