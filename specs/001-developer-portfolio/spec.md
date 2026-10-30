@@ -8,6 +8,17 @@
 
 **Input**: User description: "Personal developer portfolio for Thanuja (GitHub ThanujaR12) that showcases GitHub projects to recruiters and companies, with owner curation and a grounded AI "Ask me" chatbot. Use all decisions in docs/decisions.md (deep-space glass theme, single-page home + project case-study pages, featured spotlight + filterable grid, hero prompt + floating chat panel, GitHub sync with pending-review for new repos, admin via GitHub sign-in allowlisted to ThanujaR12, free-only services, resume page, contact)."
 
+## Clarifications
+
+### Session 2026-10-30
+
+- Q: Case-study page layout? → A: Cinematic hero (full-width cover screenshot, title, Live/Code buttons), then a quick-facts strip (role, stack, year, status), then glass panels for Problem, Highlights, Gallery, with prev/next at the bottom.
+- Q: Hero background motion? → A: Slowly drifting perspective grid with a soft cyan/violet glow following the cursor; static when reduced motion is preferred and on touch devices the glow is anchored.
+- Q: Skills section display? → A: Grouped glass chips by category with per-skill project counts; selecting a chip filters the project grid.
+- Q: Extra touches? → A: Live GitHub stats strip only (public repo count, top languages, last commit date). No ⌘K search, availability badge, or typed headline in v1.
+- Q: Chatbot voice? → A: Third-person assistant that speaks about Thanuja ("Thanuja built…"), clearly labelled as an AI guide.
+- Q: Admin dashboard style? → A: Three-column board (Pending / Published / Hidden) with drag between columns and drag-to-reorder; clicking a card opens a side editor with a live preview of the public card; "Sync now" and last-sync status in the header.
+
 ## User Scenarios & Testing *(mandatory)*
 
 Actors:
@@ -121,22 +132,25 @@ The visitor views the resume on its own page (readable in-browser) and downloads
 - **FR-002**: The site MUST show a sticky navigation bar with links to each home section plus Resume and Ask AI, highlighting the section currently in view, and collapsing to a menu on narrow screens.
 - **FR-003**: The visual design MUST follow the "deep-space glass" theme: deep navy-black background, faint animated grid, frosted-glass cards, cyan-to-violet gradient accents and hover glow, generous spacing.
 - **FR-004**: Decorative motion MUST be disabled or minimized when the visitor prefers reduced motion, and MUST never block reading or interaction.
+- **FR-004a**: The hero background MUST show a slowly drifting perspective grid with a soft cyan/violet glow that follows the pointer (anchored on touch devices, static under reduced motion).
+- **FR-004b**: The site MUST show a live GitHub stats strip (public repository count, top languages, date of last commit), hidden gracefully if stats cannot be loaded.
 
 **Projects**
 - **FR-005**: The Featured section MUST show up to 3 owner-selected projects as large spotlight cards with screenshot, title, one-line summary, and top technologies.
 - **FR-006**: The All Projects grid MUST list every published project with filter chips by technology (multi-select) and sort options (featured first, most recent, alphabetical).
 - **FR-007**: Each published project MUST have its own case-study page at a stable, human-readable, shareable URL.
-- **FR-008**: A case-study page MUST show: title, summary, problem, Thanuja's role, highlights, technologies, screenshots, source link, live-demo link (when provided), and last-updated date; with previous/next project navigation.
+- **FR-008**: A case-study page MUST show, in this order: a full-width cover hero with title and Live/Code buttons; a quick-facts strip (role, technologies, year, status); glass panels for Problem, Highlights, and Gallery (screenshots with an enlarged view); last-updated date; and previous/next project navigation.
 - **FR-009**: Where curated content is missing, the site MUST fall back to GitHub data (description, languages, README excerpt, topics).
 - **FR-010**: Each page MUST provide accurate title, description, and preview image metadata for link sharing and search engines.
 
 **Skills & About**
-- **FR-011**: The Skills section MUST group technologies (e.g. Languages, Frontend, Backend, AI/Data, Tools) and selecting a skill MUST filter the project grid to projects that use it.
+- **FR-011**: The Skills section MUST show technologies as glass chips grouped by category (Languages, Frontend, Backend, AI/Data, Tools), each with its project count; selecting a chip MUST scroll to and filter the project grid to projects that use it.
 - **FR-012**: The About section MUST present a short bio, photo, current focus, and education/experience highlights, editable by the owner.
 
 **AI assistant**
 - **FR-013**: The site MUST offer an "Ask me anything" prompt in the hero and a floating Ask AI button on every page that opens a chat side panel with 3–4 suggested questions.
 - **FR-014**: The assistant MUST answer only from portfolio content (published projects, their READMEs, About, resume) and MUST link the projects it used.
+- **FR-014a**: The assistant MUST speak in the third person about Thanuja and be clearly labelled as an AI guide.
 - **FR-015**: The assistant MUST state when the content does not cover a question and suggest the contact section, rather than guessing.
 - **FR-016**: The assistant MUST limit usage per visitor (default 20 questions per hour) and show a friendly message when the limit or service availability prevents an answer.
 - **FR-017**: Chat conversations MUST NOT require visitor sign-in and MUST NOT store personal data beyond what is needed for rate-limiting.
@@ -146,6 +160,7 @@ The visitor views the resume on its own page (readable in-browser) and downloads
 - **FR-019**: The system MUST sync public repositories of `ThanujaR12` automatically at least once a day and on demand via "Sync now".
 - **FR-020**: Newly discovered repositories MUST enter "Pending review" and MUST NOT be public until the owner publishes them; forks default to hidden.
 - **FR-021**: The owner MUST be able to publish/hide, feature (max 3), reorder, and edit curated fields (display title, summary, problem, role, highlights, technology tags, live-demo link) for each project.
+- **FR-021a**: The admin MUST present projects as a three-column board (Pending / Published / Hidden) supporting drag between columns and drag-to-reorder (with a keyboard alternative), and a side editor showing a live preview of the public card.
 - **FR-022**: The owner MUST be able to upload and reorder screenshots per project, and choose a cover image.
 - **FR-023**: The owner MUST be able to edit About content and replace the resume PDF.
 - **FR-024**: Published changes MUST appear on the public site within 60 seconds.
