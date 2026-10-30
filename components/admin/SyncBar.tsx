@@ -17,7 +17,7 @@ export function SyncBar({
 }) {
   const [run, setRun] = useState(lastRun);
   const [busy, setBusy] = useState(false);
-  const [note, setNote] = useState<string | null>(null);
+  const [note, setNote] = useState<{ ok: boolean; text: string } | null>(null);
 
   const sync = async () => {
     setBusy(true);
@@ -31,13 +31,14 @@ export function SyncBar({
         r.updated.length && `${r.updated.length} updated`,
         r.removed.length && `${r.removed.length} removed`,
       ].filter(Boolean);
-      setNote(parts.length ? `Synced: ${parts.join(", ")}.` : "Already up to date.");
+      const added = r.added.length ? ` New in Pending review: ${r.added.join(", ")}.` : "";
+      setNote({ ok: true, text: parts.length ? `Synced: ${parts.join(", ")}.${added}` : "Already up to date with GitHub." });
       const list = await adminFetch<{ projects: Project[] }>("/api/admin/projects", { method: "GET" });
       if (list.ok) onSynced(list.data.projects);
     } else if (res.status === 401) {
-      setNote("Your session expired. Reload the page to sign in again.");
+      setNote({ ok: false, text: "Your session expired. Reload the page to sign in again." });
     } else {
-      setNote("Sync failed. GitHub may be unreachable; the site keeps its last data.");
+      setNote({ ok: false, text: "Sync failed. GitHub may be unreachable; the site keeps its last data." });
     }
     setBusy(false);
   };
@@ -68,8 +69,17 @@ export function SyncBar({
           {needsContent > 0 && <span>{needsContent} need content</span>}
           {removed > 0 && <span className="text-amber-300">{removed} removed from GitHub</span>}
         </p>
-        <p role="status" className="mt-1 text-xs text-ink/80">
-          {note}
+        <p role="status" className="mt-2">
+          {note && (
+            <span
+              className={`inline-block rounded-lg px-3 py-1.5 text-sm ${
+                note.ok ? "bg-emerald-400/15 text-emerald-200" : "bg-amber-400/15 text-amber-200"
+              }`}
+            >
+              {note.ok ? "✓ " : ""}
+              {note.text}
+            </span>
+          )}
         </p>
       </div>
       <button

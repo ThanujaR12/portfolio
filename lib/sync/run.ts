@@ -13,7 +13,14 @@ export async function runSync(trigger: SyncRun["trigger"]): Promise<SyncRun> {
   try {
     const { projects: current } = await readContent("projects", { fresh: true });
     const known = new Map(current.map((p) => [p.id, p]));
-    const repos = await listPublicRepos(user());
+    // Content saves are commits to the portfolio's own repo, so its push date moves on every
+    // save and sync. Keep the recorded date for it, or each sync would "update" it forever.
+    const contentRepo = process.env.GITHUB_CONTENT_REPO?.toLowerCase();
+    const repos = (await listPublicRepos(user())).map((r) => {
+      const prev = known.get(r.id);
+      const isContentRepo = contentRepo && r.url.toLowerCase().endsWith(`/${contentRepo}`);
+      return isContentRepo && prev ? { ...r, pushedAt: prev.github.pushedAt } : r;
+    });
 
     // Languages + README only for new repos or ones with new pushes: keeps API calls low.
     const detailed: RepoSnapshot[] = await Promise.all(
