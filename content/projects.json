@@ -2,21 +2,7 @@
   "version": 1,
   "projects": [
     {
-      "id": 1370808784,
-      "repoName": "PaletteBoard",
       "slug": "paletteboard",
-      "github": {
-        "description": "PaletteBoard: save, organize, and share image collections as color-themed mood boards. Change++ Fall 2026 Coding Challenge.",
-        "url": "https://github.com/ThanujaR12/PaletteBoard",
-        "homepage": "https://paletteboard.vercel.app",
-        "languages": { "TypeScript": 543731, "PowerShell": 62571, "HTML": 56878, "CSS": 47353, "JavaScript": 22646 },
-        "topics": ["express", "mongodb", "react", "spec-driven-development", "typescript"],
-        "stars": 0,
-        "isFork": true,
-        "isArchived": false,
-        "pushedAt": "2026-09-19T00:05:01Z",
-        "readmeExcerpt": ""
-      },
       "title": "PaletteBoard",
       "summary": "Save photos into colourful mood boards. Every board builds its own colour palette and the whole app takes on its colours.",
       "problem": "Image-saving apps treat a collection as a plain list. Designers and hobbyists collect images for their **mood and colour**, but have no way to see, search or reuse the palette a collection creates.\n\nPaletteBoard reads the main colours of every saved photo and blends them into a palette per board, then builds the experience around it: tinted board pages, colour search and palette export.",
@@ -29,33 +15,53 @@
         "Google sign-in, installable on Android and iOS",
         "Built with a spec-driven workflow (Spec Kit) and Claude Code"
       ],
-      "tags": ["React", "TypeScript", "Express", "MongoDB", "Node.js"],
+      "tags": [
+        "React",
+        "TypeScript",
+        "Express",
+        "MongoDB",
+        "Node.js"
+      ],
       "demoUrl": "https://paletteboard.vercel.app",
       "year": 2026,
       "screenshots": [],
+      "id": 1370808784,
+      "repoName": "PaletteBoard",
+      "github": {
+        "description": "PaletteBoard: save, organize, and share image collections as color-themed mood boards. Change++ Fall 2026 Coding Challenge.",
+        "url": "https://github.com/ThanujaR12/PaletteBoard",
+        "homepage": "https://paletteboard.vercel.app",
+        "languages": {
+          "TypeScript": 543731,
+          "PowerShell": 62571,
+          "HTML": 56878,
+          "CSS": 47353,
+          "JavaScript": 22646
+        },
+        "topics": [
+          "express",
+          "mongodb",
+          "react",
+          "spec-driven-development",
+          "typescript"
+        ],
+        "stars": 0,
+        "isFork": true,
+        "isArchived": false,
+        "pushedAt": "2026-09-19T00:05:01Z",
+        "readmeExcerpt": ""
+      },
       "status": "published",
       "featured": true,
       "order": 1,
-      "flags": ["needs-content"],
+      "flags": [
+        "needs-content"
+      ],
       "firstSeenAt": "2026-10-30T00:00:00Z",
       "updatedAt": "2026-10-30T00:00:00Z"
     },
     {
-      "id": 1029388764,
-      "repoName": "AI-business-Assistant-",
       "slug": "ai-business-assistant",
-      "github": {
-        "description": "This business assistant essentially transforms raw business data into actionable insights through AI-powered analysis, interactive visualizations, and natural language querying, making it a comprehensive tool for data-driven business decision making.",
-        "url": "https://github.com/ThanujaR12/AI-business-Assistant-",
-        "homepage": null,
-        "languages": { "HTML": 61696, "Python": 54116, "TypeScript": 15907, "SCSS": 6249, "Jupyter Notebook": 119 },
-        "topics": [],
-        "stars": 0,
-        "isFork": false,
-        "isArchived": false,
-        "pushedAt": "2025-07-31T01:54:11Z",
-        "readmeExcerpt": "# Business Analytics Assistant\n\nAn AI-powered business analytics platform that combines data analysis, visualization, and natural language processing to provide intelligent business insights.\n\n## Features\n\n- **AI-Powered Analysis**: GPT-4 Turbo integration for intelligent data interpretation\n- **Multi-Format Data Support**: Upload CSV, Excel, and Markdown table files\n- **Interactive Visualizations**: Dynamic charts and graphs using Plotly\n- **Natural Language Queries**: Ask questions in plain English about your data\n- **Real-time Processing**: Live data analysis with WebSocket support\n- **Vector Database**: FAISS-powered semantic search for contextual understanding\n\n## Technology Stack\n\n- **Backend**: Flask with SocketIO, Pandas & NumPy, OpenAI API, LangChain, FAISS\n- **Frontend**: Angular 17 analytics dashboard, React chat interface, Plotly.js"
-      },
       "title": "AI Business Assistant",
       "summary": "Upload business data and ask questions in plain English. AI analysis, interactive charts and semantic search turn it into insights.",
       "problem": "Small teams sit on spreadsheets of sales and pricing data but lack an analyst to interpret them. Asking a question of the data usually means writing formulas or code.\n\nThis assistant accepts CSV, Excel or Markdown tables and lets people **ask questions in natural language**, answering with AI-generated analysis and interactive visualisations.",
@@ -67,33 +73,50 @@
         "Interactive Plotly charts in an Angular dashboard plus a React chat UI",
         "Real-time updates over WebSockets (Flask-SocketIO)"
       ],
-      "tags": ["Python", "Flask", "Angular", "React", "OpenAI", "LangChain", "FAISS", "Pandas"],
+      "tags": [
+        "Python",
+        "Flask",
+        "Angular",
+        "React",
+        "OpenAI",
+        "LangChain",
+        "FAISS",
+        "Pandas"
+      ],
       "demoUrl": null,
       "year": 2025,
       "screenshots": [],
-      "status": "published",
-      "featured": true,
-      "order": 2,
-      "flags": ["needs-content"],
-      "firstSeenAt": "2026-10-30T00:00:00Z",
-      "updatedAt": "2026-10-30T00:00:00Z"
-    },
-    {
-      "id": 1029402005,
-      "repoName": "campus-connect-app",
-      "slug": "campus-connect",
+      "id": 1029388764,
+      "repoName": "AI-business-Assistant-",
       "github": {
-        "description": null,
-        "url": "https://github.com/ThanujaR12/campus-connect-app",
+        "description": "This business assistant essentially transforms raw business data into actionable insights through AI-powered analysis, interactive visualizations, and natural language querying, making it a comprehensive tool for data-driven business decision making.",
+        "url": "https://github.com/ThanujaR12/AI-business-Assistant-",
         "homepage": null,
-        "languages": { "TypeScript": 252574 },
+        "languages": {
+          "HTML": 61696,
+          "Python": 54116,
+          "TypeScript": 15907,
+          "SCSS": 6249,
+          "Jupyter Notebook": 119
+        },
         "topics": [],
         "stars": 0,
         "isFork": false,
         "isArchived": false,
-        "pushedAt": "2025-07-31T02:14:09Z",
-        "readmeExcerpt": "# Campus Connect\n\nA cross-platform mobile app built with Expo and React Native.\n\n## Project structure\n\n- `app/` – main application code (screens, navigation)\n- `components/` – reusable UI components\n- `constants/` – app-wide constants (colours, etc.)\n- `store/` – Zustand state management stores\n- `assets/` – images and static assets\n\nRuns on iOS and Android through Expo Go."
+        "pushedAt": "2025-07-31T01:54:11Z",
+        "readmeExcerpt": "# Business Analytics Assistant\n\nAn AI-powered business analytics platform that combines data analysis, visualization, and natural language processing to provide intelligent business insights.\n\n## Features\n\n- **AI-Powered Analysis**: GPT-4 Turbo integration for intelligent data interpretation\n- **Multi-Format Data Support**: Upload CSV, Excel, and Markdown table files\n- **Interactive Visualizations**: Dynamic charts and graphs using Plotly\n- **Natural Language Queries**: Ask questions in plain English about your data\n- **Real-time Processing**: Live data analysis with WebSocket support\n- **Vector Database**: FAISS-powered semantic search for contextual understanding\n\n## Technology Stack\n\n- **Backend**: Flask with SocketIO, Pandas & NumPy, OpenAI API, LangChain, FAISS\n- **Frontend**: Angular 17 analytics dashboard, React chat interface, Plotly.js"
       },
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "flags": [
+        "needs-content"
+      ],
+      "firstSeenAt": "2026-10-30T00:00:00Z",
+      "updatedAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "slug": "campus-connect",
       "title": "Campus Connect",
       "summary": "A cross-platform mobile app for campus life, built with Expo, React Native and TypeScript.",
       "role": "Mobile developer",
@@ -102,16 +125,70 @@
         "File-based screen navigation and reusable component library",
         "Zustand stores for app-wide state"
       ],
-      "tags": ["TypeScript", "React Native", "Expo", "Zustand"],
+      "tags": [
+        "TypeScript",
+        "React Native",
+        "Expo",
+        "Zustand"
+      ],
       "demoUrl": null,
       "year": 2025,
       "screenshots": [],
+      "id": 1029402005,
+      "repoName": "campus-connect-app",
+      "github": {
+        "description": null,
+        "url": "https://github.com/ThanujaR12/campus-connect-app",
+        "homepage": null,
+        "languages": {
+          "TypeScript": 252574
+        },
+        "topics": [],
+        "stars": 0,
+        "isFork": false,
+        "isArchived": false,
+        "pushedAt": "2025-07-31T02:14:09Z",
+        "readmeExcerpt": "# Campus Connect\n\nA cross-platform mobile app built with Expo and React Native.\n\n## Project structure\n\n- `app/` – main application code (screens, navigation)\n- `components/` – reusable UI components\n- `constants/` – app-wide constants (colours, etc.)\n- `store/` – Zustand state management stores\n- `assets/` – images and static assets\n\nRuns on iOS and Android through Expo Go."
+      },
       "status": "published",
       "featured": false,
       "order": 3,
-      "flags": ["needs-content"],
+      "flags": [
+        "needs-content"
+      ],
       "firstSeenAt": "2026-10-30T00:00:00Z",
       "updatedAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "slug": "portfolio",
+      "highlights": [],
+      "tags": [],
+      "screenshots": [],
+      "id": 1440288517,
+      "repoName": "portfolio",
+      "github": {
+        "description": "My developer portfolio",
+        "url": "https://github.com/ThanujaR12/portfolio",
+        "homepage": "https://portfolio-thanuja-r.vercel.app",
+        "languages": {
+          "TypeScript": 241249,
+          "PowerShell": 62571,
+          "CSS": 3427,
+          "JavaScript": 3171
+        },
+        "topics": [],
+        "stars": 0,
+        "isFork": false,
+        "isArchived": false,
+        "pushedAt": "2026-10-30T23:25:33Z",
+        "readmeExcerpt": "# Thanuja Rameshbaabu — Developer Portfolio\n\nA fast, accessible portfolio that showcases my GitHub projects to recruiters, with an AI guide\nthat answers questions about my work and an admin area where I curate everything.\n\n**Design:** \"deep-space glass\": a dark, airy, futuristic theme with a drifting grid, frosted-glass\ncards and a cyan→violet accent, built so the projects are what stands out.\n\n## What visitors get\n\n- **One-page overview** (hero, featured work, all projects, skills, about, contact) with a sticky\n  navigation bar that highlights where you are.\n- **Featured spotlight + filterable grid**: filter by technology and sort; filtered views are\n  shareable links (`/?tech=React`).\n- **Case studies** at `/projects/`: cover, quick facts (role, stack, year, status), the\n  problem, highlights, screenshot gallery, live demo and code links, share image.\n- **Ask AI**: a guide that answers only from portfolio content, cites the projects it used, and\n  says plainly when it doesn't know. Streams answers; rate-limited; degrades gracefully.\n- **Resume** page with inline PDF, download, and a text version.\n- **Contact form** delivered to my inbox, with spam protection that needs no CAPTCHA.\n- **Live GitHub stats** strip, a skills map that links to projects, and full keyboard/screen-reader\n  support. Lighthouse (mobile): 100 / 100 / 100 / 100.\n\n## What I get (`/admin`)\n\n- **Sign in with GitHub**: only my account is allowed (checked on the server for every request).\n- **GitHub sync**: daily and on demand. New repos arrive in *Pending review* and are never public\n  until I publish them; deleted/private repos are hidden automatically.\n- **Board**: drag projects between *Pending / Published / Hidden*, reorder, ★ feature up to three.\n- **Editor**: write each case study, upload screenshots (auto-converted to WebP), see a live\n  preview of the public card.\n- **Profile & resume**: edit the About section and links, upload a photo, replace the resume PDF\n  (its text also teaches the AI guide).\n\nEvery save is a commit to this repository, so all content has history and can be undone.\n\n## Tech\n\nNext.js 16 (App Router, React Server Components) · TypeScript · Tailwind CSS v4 · Auth.js v5 ·\nGoogle Gemini (free tier) · Upstash Redis (free) · Resend (free) · Vercel Hobby (free) ·\nVitest · Playwright + axe. **Running cost: $0.**\n\nBuilt spec-first with [Spec Kit](https://github.com/github/spec-kit) and Claude Code:\nthe [spec](specs/001-developer-portfolio/spec.md), [plan](specs/001-developer-portfolio/plan.md),\n[tasks](specs/001-developer-portfolio/tasks.md) and [constitution](.specify/memory/constitution.md)\nare in the repo.\n\n## Run locally\n\n```bash\nnpm install\ncp .env.example .env.local   # then set AUTH_SECRET and ADMIN_DEV_LOGIN=1\nnpm run dev                  # http://localhost:3000\n```\n\nLocally everything works without any accounts: content is read from and saved to `content/`,\nAsk AI uses offline answers, contact messages are logged, and `/admin` offers development-only\nsign-in buttons when `ADMIN_DEV_LOGIN=1`. Generate `AUTH_SECRET` with `npx auth secret`.\n\n| Command | What it does |\n|---|---|\n| `npm test` | Unit tests (Vitest) |\n| `npm run test:e2e` | Browser tests on desktop, phone and admin (Playwright, uses installed Chrome; dev server must allow `ADMIN_DEV_LOGIN=1`) |\n| `npm run lint` · `npm run typecheck` | ESLint · TypeScript |\n| `npm run build` then `npm start -- -p 3001` and `npm run lighthouse` | Production build + mobile Lighthouse gate (fails below 90) |\n| `node scripts/screenshots.mjs  [route…]` | Desktop + phone screenshots with headless Chrome |\n\n## Deploy (free)\n\n1. **Push this repo to GitHub** (e.g. `ThanujaR12/portfolio`) and import it in\n   [Vercel](https://vercel.com/new). Framework: Next.js; no build settings to change.\n2. **GitHub OAuth app** (Settings → Developer settings → OAuth Apps → New):\n   homepage `https://`, callback `https:///api/auth/callback/github`.\n   → `AUTH_GITHUB_ID`, `AUTH_GITHUB_SECRET`."
+      },
+      "status": "pending",
+      "featured": false,
+      "order": 0,
+      "flags": [],
+      "firstSeenAt": "2026-10-30T23:30:39.539Z",
+      "updatedAt": "2026-10-30T23:30:39.539Z"
     }
   ]
 }
