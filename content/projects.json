@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "projects": [
+    {
+      "id": 1370808784,
+      "repoName": "PaletteBoard",
+      "slug": "paletteboard",
+      "github": {
+        "description": "PaletteBoard: save, organize, and share image collections as color-themed mood boards. Change++ Fall 2026 Coding Challenge.",
+        "url": "https://github.com/ThanujaR12/PaletteBoard",
+        "homepage": "https://paletteboard.vercel.app",
+        "languages": { "TypeScript": 543731, "PowerShell": 62571, "HTML": 56878, "CSS": 47353, "JavaScript": 22646 },
+        "topics": ["express", "mongodb", "react", "spec-driven-development", "typescript"],
+        "stars": 0,
+        "isFork": true,
+        "isArchived": false,
+        "pushedAt": "2026-09-19T00:05:01Z",
+        "readmeExcerpt": ""
+      },
+      "title": "PaletteBoard",
+      "summary": "Save photos into colourful mood boards. Every board builds its own colour palette and the whole app takes on its colours.",
+      "problem": "Image-saving apps treat a collection as a plain list. Designers and hobbyists collect images for their **mood and colour**, but have no way to see, search or reuse the palette a collection creates.\n\nPaletteBoard reads the main colours of every saved photo and blends them into a palette per board, then builds the experience around it: tinted board pages, colour search and palette export.",
+      "role": "Solo full-stack developer",
+      "highlights": [
+        "Each board's page is tinted with its own palette, with every accent contrast-checked for readability",
+        "Search by text, voice, or photo; browse by 13 colours",
+        "A 'Picked for you' feed that learns from what you save",
+        "Share boards by read-only link or invite editors and viewers",
+        "Google sign-in, installable on Android and iOS",
+        "Built with a spec-driven workflow (Spec Kit) and Claude Code"
+      ],
+      "tags": ["React", "TypeScript", "Express", "MongoDB", "Node.js"],
+      "demoUrl": "https://paletteboard.vercel.app",
+      "year": 2026,
+      "screenshots": [],
+      "status": "published",
+      "featured": true,
+      "order": 1,
+      "flags": ["needs-content"],
+      "firstSeenAt": "2026-10-30T00:00:00Z",
+      "updatedAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "id": 1029388764,
+      "repoName": "AI-business-Assistant-",
+      "slug": "ai-business-assistant",
+      "github": {
+        "description": "This business assistant essentially transforms raw business data into actionable insights through AI-powered analysis, interactive visualizations, and natural language querying, making it a comprehensive tool for data-driven business decision making.",
+        "url": "https://github.com/ThanujaR12/AI-business-Assistant-",
+        "homepage": null,
+        "languages": { "HTML": 61696, "Python": 54116, "TypeScript": 15907, "SCSS": 6249, "Jupyter Notebook": 119 },
+        "topics": [],
+        "stars": 0,
+        "isFork": false,
+        "isArchived": false,
+        "pushedAt": "2025-07-31T01:54:11Z",
+        "readmeExcerpt": "# Business Analytics Assistant\n\nAn AI-powered business analytics platform that combines data analysis, visualization, and natural language processing to provide intelligent business insights.\n\n## Features\n\n- **AI-Powered Analysis**: GPT-4 Turbo integration for intelligent data interpretation\n- **Multi-Format Data Support**: Upload CSV, Excel, and Markdown table files\n- **Interactive Visualizations**: Dynamic charts and graphs using Plotly\n- **Natural Language Queries**: Ask questions in plain English about your data\n- **Real-time Processing**: Live data analysis with WebSocket support\n- **Vector Database**: FAISS-powered semantic search for contextual understanding\n\n## Technology Stack\n\n- **Backend**: Flask with SocketIO, Pandas & NumPy, OpenAI API, LangChain, FAISS\n- **Frontend**: Angular 17 analytics dashboard, React chat interface, Plotly.js"
+      },
+      "title": "AI Business Assistant",
+      "summary": "Upload business data and ask questions in plain English. AI analysis, interactive charts and semantic search turn it into insights.",
+      "problem": "Small teams sit on spreadsheets of sales and pricing data but lack an analyst to interpret them. Asking a question of the data usually means writing formulas or code.\n\nThis assistant accepts CSV, Excel or Markdown tables and lets people **ask questions in natural language**, answering with AI-generated analysis and interactive visualisations.",
+      "role": "Full-stack & AI developer",
+      "highlights": [
+        "Natural-language questions over uploaded CSV, Excel and Markdown data",
+        "GPT-4 Turbo analysis with LangChain orchestration",
+        "FAISS vector search for context-aware answers",
+        "Interactive Plotly charts in an Angular dashboard plus a React chat UI",
+        "Real-time updates over WebSockets (Flask-SocketIO)"
+      ],
+      "tags": ["Python", "Flask", "Angular", "React", "OpenAI", "LangChain", "FAISS", "Pandas"],
+      "demoUrl": null,
+      "year": 2025,
+      "screenshots": [],
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "flags": ["needs-content"],
+      "firstSeenAt": "2026-10-30T00:00:00Z",
+      "updatedAt": "2026-10-30T00:00:00Z"
+    },
+    {
+      "id": 1029402005,
+      "repoName": "campus-connect-app",
+      "slug": "campus-connect",
+      "github": {
+        "description": null,
+        "url": "https://github.com/ThanujaR12/campus-connect-app",
+        "homepage": null,
+        "languages": { "TypeScript": 252574 },
+        "topics": [],
+        "stars": 0,
+        "isFork": false,
+        "isArchived": false,
+        "pushedAt": "2025-07-31T02:14:09Z",
+        "readmeExcerpt": "# Campus Connect\n\nA cross-platform mobile app built with Expo and React Native.\n\n## Project structure\n\n- `app/` – main application code (screens, navigation)\n- `components/` – reusable UI components\n- `constants/` – app-wide constants (colours, etc.)\n- `store/` – Zustand state management stores\n- `assets/` – images and static assets\n\nRuns on iOS and Android through Expo Go."
+      },
+      "title": "Campus Connect",
+      "summary": "A cross-platform mobile app for campus life, built with Expo, React Native and TypeScript.",
+      "role": "Mobile developer",
+      "highlights": [
+        "Runs on iOS and Android from one TypeScript codebase via Expo",
+        "File-based screen navigation and reusable component library",
+        "Zustand stores for app-wide state"
+      ],
+      "tags": ["TypeScript", "React Native", "Expo", "Zustand"],
+      "demoUrl": null,
+      "year": 2025,
+      "screenshots": [],
+      "status": "published",
+      "featured": false,
+      "order": 3,
+      "flags": ["needs-content"],
+      "firstSeenAt": "2026-10-30T00:00:00Z",
+      "updatedAt": "2026-10-30T00:00:00Z"
+    }
+  ]
+}

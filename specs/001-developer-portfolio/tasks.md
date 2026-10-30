@@ -20,24 +20,24 @@ description: "Task list for the Developer Portfolio"
 
 ## Phase 1: Setup
 
-- [ ] T001 Scaffold Next.js 15 + TypeScript + Tailwind v4 App Router app at repo root (`package.json`, `tsconfig.json`, `next.config.ts`, `app/`), keeping `.specify/` and `specs/`
-- [ ] T002 [P] Add ESLint + Prettier config and `npm run lint`/`format` scripts
-- [ ] T003 [P] Add Vitest (`vitest.config.ts`, `tests/unit/`) and Playwright + axe (`playwright.config.ts`, `tests/e2e/`) with `test`/`test:e2e` scripts
-- [ ] T004 [P] Create `.env.example` listing every variable from quickstart.md, and `lib/env.ts` validating them with zod (optional ones may be absent in dev)
-- [ ] T005 [P] Add `.claude/launch.json` dev-server config (`npm run dev`, port 3000)
+- [x] T001 Scaffold Next.js 15 + TypeScript + Tailwind v4 App Router app at repo root (`package.json`, `tsconfig.json`, `next.config.ts`, `app/`), keeping `.specify/` and `specs/`
+- [x] T002 [P] Add ESLint + Prettier config and `npm run lint`/`format` scripts
+- [x] T003 [P] Add Vitest (`vitest.config.ts`, `tests/unit/`) and Playwright + axe (`playwright.config.ts`, `tests/e2e/`) with `test`/`test:e2e` scripts
+- [ ] T004 [P] Create `.env.example` listing every variable from quickstart.md, and `lib/env.ts` validating them with zod (optional ones may be absent in dev) _(partial: `.env.example` done; `lib/env.ts` validation lands with the first service that needs secrets)_
+- [x] T005 [P] Add `.claude/launch.json` dev-server config (`npm run dev`, port 3000)
 
 ---
 
 ## Phase 2: Foundational (blocks all stories)
 
-- [ ] T006 Define zod schemas for Project, Screenshot, Profile, SyncRun, ChatRequest, ContactMessage in `lib/schemas.ts` (per data-model.md + content-schema.md, including invariants)
-- [ ] T007 Implement content store `lib/content/store.ts`: `CONTENT_SOURCE=fs` (read/write `content/`) and `github` (Contents API with sha, retry-once on 409), cached with tag `content`
-- [ ] T008 [P] Implement GitHub client `lib/github/client.ts`, `lib/github/repos.ts` (list public repos, languages, README excerpt) cached with tag `github`
-- [ ] T009 Implement `lib/content/merge.ts` (GitHub ⊕ curated → `PortfolioProject` view model with all fallbacks) + unit tests `tests/unit/merge.test.ts`
-- [ ] T010 [P] Implement `lib/content/skills.ts` (alias + category maps, counts) + unit tests `tests/unit/skills.test.ts`
-- [ ] T011 Seed `content/projects.json` and `content/profile.json` with the 3 current repos (PaletteBoard, campus-connect-app, AI-business-Assistant-) and placeholder profile copy
-- [ ] T012 Design system: tokens in `app/globals.css` (`@theme` colours, glass utilities, focus ring, reduced-motion rules), fonts via `next/font` in `app/layout.tsx`, primitives in `components/ui/` (Button, Chip, Glass, Dialog, VisuallyHidden)
-- [ ] T013 Root layout `app/layout.tsx`: page background, skip link, metadata base, `GlassNav` slot, footer
+- [x] T006 Define zod schemas for Project, Screenshot, Profile, SyncRun, ChatRequest, ContactMessage in `lib/schemas.ts` (per data-model.md + content-schema.md, including invariants)
+- [ ] T007 Implement content store `lib/content/store.ts`: `CONTENT_SOURCE=fs` (read/write `content/`) and `github` (Contents API with sha, retry-once on 409), cached with tag `content` _(partial: read path done for fs + github; write path lands with US4)_
+- [ ] T008 [P] Implement GitHub client `lib/github/client.ts`, `lib/github/repos.ts` (list public repos, languages, README excerpt) cached with tag `github` _(deferred to US4 sync; stats strip derives from synced content per R9)_
+- [x] T009 Implement `lib/content/merge.ts` (GitHub ⊕ curated → `PortfolioProject` view model with all fallbacks) + unit tests `tests/unit/merge.test.ts`
+- [x] T010 [P] Implement `lib/content/skills.ts` (alias + category maps, counts) + unit tests `tests/unit/skills.test.ts`
+- [x] T011 Seed `content/projects.json` and `content/profile.json` with the 3 current repos (PaletteBoard, campus-connect-app, AI-business-Assistant-) and placeholder profile copy
+- [x] T012 Design system: tokens in `app/globals.css` (`@theme` colours, glass utilities, focus ring, reduced-motion rules), fonts via `next/font` in `app/layout.tsx`, primitives in `components/ui/` (Button, Chip, Glass, Dialog, VisuallyHidden)
+- [x] T013 Root layout `app/layout.tsx`: page background, skip link, metadata base, `GlassNav` slot, footer
 
 **Checkpoint**: content loads, design tokens render, unit tests pass.
 
@@ -48,16 +48,16 @@ description: "Task list for the Developer Portfolio"
 **Goal**: Single-page home with hero, featured, filterable grid, skills, about, contact links.
 **Independent test**: quickstart V1–V3.
 
-- [ ] T014 [P] [US1] `components/site/GlassNav.tsx`: sticky glass bar, section links + Resume + Ask AI, active section via IntersectionObserver, mobile menu (focus-trapped)
-- [ ] T015 [P] [US1] `components/site/HeroBackground.tsx`: CSS perspective grid drift + rAF cursor glow; off under reduced motion; anchored on `(hover: none)`
-- [ ] T016 [P] [US1] `lib/github/stats.ts` + `components/site/StatsStrip.tsx` (repo count, top 3 languages, last push; hidden on failure)
-- [ ] T017 [US1] `components/site/Hero.tsx`: name, gradient positioning line, Explore work CTA, HeroAsk placeholder input, StatsStrip
-- [ ] T018 [P] [US1] `components/site/FeaturedCard.tsx` + Featured section (1–3 cards adaptive layout; hidden when none)
-- [ ] T019 [US1] `components/site/ProjectGrid.tsx` + `FilterChips.tsx`: multi-select tech filter, sort (featured/recent/A–Z), URL-synced `?tech=&sort=`, empty state
-- [ ] T020 [P] [US1] `components/site/SkillsSection.tsx`: grouped glass chips with counts; click → set filter and scroll to grid
-- [ ] T021 [P] [US1] `components/site/AboutSection.tsx` and `ContactSection.tsx` (links only for now)
-- [ ] T022 [US1] Compose `app/page.tsx` (Server Component, revalidate 3600) + `app/sitemap.ts`, `app/robots.ts`, home metadata
-- [ ] T023 [US1] e2e `tests/e2e/home.spec.ts`: hero above fold at 375/1280, filter via chip + skill, nav jump, axe clean, reduced motion
+- [x] T014 [P] [US1] `components/site/GlassNav.tsx`: sticky glass bar, section links + Resume + Ask AI, active section via IntersectionObserver, mobile menu (focus-trapped)
+- [x] T015 [P] [US1] `components/site/HeroBackground.tsx`: CSS perspective grid drift + rAF cursor glow; off under reduced motion; anchored on `(hover: none)`
+- [x] T016 [P] [US1] `lib/github/stats.ts` + `components/site/StatsStrip.tsx` (repo count, top 3 languages, last push; hidden on failure)
+- [x] T017 [US1] `components/site/Hero.tsx`: name, gradient positioning line, Explore work CTA, HeroAsk placeholder input, StatsStrip
+- [x] T018 [P] [US1] `components/site/FeaturedCard.tsx` + Featured section (1–3 cards adaptive layout; hidden when none)
+- [x] T019 [US1] `components/site/ProjectGrid.tsx` + `FilterChips.tsx`: multi-select tech filter, sort (featured/recent/A–Z), URL-synced `?tech=&sort=`, empty state
+- [x] T020 [P] [US1] `components/site/SkillsSection.tsx`: grouped glass chips with counts; click → set filter and scroll to grid
+- [x] T021 [P] [US1] `components/site/AboutSection.tsx` and `ContactSection.tsx` (links only for now)
+- [x] T022 [US1] Compose `app/page.tsx` (Server Component, revalidate 3600) + `app/sitemap.ts`, `app/robots.ts`, home metadata
+- [x] T023 [US1] e2e `tests/e2e/home.spec.ts`: hero above fold at 375/1280, filter via chip + skill, nav jump, axe clean, reduced motion
 
 **Checkpoint**: MVP — a usable, good-looking portfolio home.
 
@@ -67,11 +67,11 @@ description: "Task list for the Developer Portfolio"
 
 **Goal**: `/projects/[slug]` cinematic case study. **Independent test**: V4–V5.
 
-- [ ] T024 [P] [US2] `components/project/CaseHero.tsx` (cover image, title, Live/Code buttons) and `QuickFacts.tsx`
-- [ ] T025 [P] [US2] `components/project/GlassPanel.tsx`, `Gallery.tsx` (grid + accessible lightbox), `PrevNext.tsx`
-- [ ] T026 [US2] `app/projects/[slug]/page.tsx` with `generateStaticParams`, `generateMetadata`, README-excerpt fallback (sanitized markdown), `notFound()` for unknown/hidden
-- [ ] T027 [P] [US2] `app/projects/[slug]/opengraph-image.tsx` (glass-styled OG card) and `app/not-found.tsx`
-- [ ] T028 [US2] e2e `tests/e2e/case-study.spec.ts`: sections render, links valid, OG tags, 404 page
+- [x] T024 [P] [US2] `components/project/CaseHero.tsx` (cover image, title, Live/Code buttons) and `QuickFacts.tsx`
+- [x] T025 [P] [US2] `components/project/GlassPanel.tsx`, `Gallery.tsx` (grid + accessible lightbox), `PrevNext.tsx`
+- [x] T026 [US2] `app/projects/[slug]/page.tsx` with `generateStaticParams`, `generateMetadata`, README-excerpt fallback (sanitized markdown), `notFound()` for unknown/hidden
+- [x] T027 [P] [US2] `app/projects/[slug]/opengraph-image.tsx` (glass-styled OG card) and `app/not-found.tsx`
+- [x] T028 [US2] e2e `tests/e2e/case-study.spec.ts`: sections render, links valid, OG tags, 404 page
 
 ---
 

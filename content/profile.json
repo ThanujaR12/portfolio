@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "name": "Thanuja Rameshbaabu",
+  "positioning": "Full-stack developer building thoughtful, AI-powered products",
+  "bio": "I'm a student developer at **Vanderbilt University** who likes turning fuzzy ideas into polished, working software. I build end to end, from React interfaces to Node and Python back ends, and I'm especially interested in practical AI: products where a model quietly makes the experience better.\n\nI work spec-first. I write down what a feature must do and why before writing code, which keeps projects focused and easy to extend.",
+  "photo": null,
+  "currentFocus": "Building AI-assisted web apps and looking for software engineering internships.",
+  "highlights": [
+    { "label": "Vanderbilt University", "detail": "Student" },
+    { "label": "Change++ Fall 2026 Coding Challenge", "detail": "Built PaletteBoard, a full-stack image board app", "period": "2026" }
+  ],
+  "links": {
+    "email": "thanuja.rameshbaabu@vanderbilt.edu",
+    "github": "https://github.com/ThanujaR12",
+    "linkedin": null
+  },
+  "resume": { "path": "/resume.pdf", "updatedAt": null, "text": "" },
+  "suggestedQuestions": [
+    "What's Thanuja's strongest project?",
+    "Has Thanuja worked with AI or LLMs?",
+    "Which front-end frameworks has Thanuja used?",
+    "What is Thanuja looking for next?"
+  ]
+}
