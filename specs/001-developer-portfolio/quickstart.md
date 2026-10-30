@@ -8,7 +8,7 @@
   - Google AI Studio key → `GEMINI_API_KEY` (or set `AI_PROVIDER=mock`)
   - Upstash Redis → `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (optional locally)
   - Resend → `RESEND_API_KEY`, `CONTACT_TO_EMAIL` (optional locally; logs instead)
-- Copy `.env.example` → `.env.local`. Set `CONTENT_SOURCE=fs` locally to read/write `content/` on disk instead of the GitHub API.
+- Copy `.env.example` → `.env.local`. Set `ADMIN_DEV_LOGIN=1` locally to sign in to `/admin` without a GitHub OAuth app (development builds only; the admin e2e suite needs it). Set `CONTENT_SOURCE=fs` locally to read/write `content/` on disk instead of the GitHub API.
 
 ## Run
 ```bash

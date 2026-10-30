@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { OPEN_CHAT_EVENT, openChat, type OpenChatDetail } from "@/components/chat/events";
@@ -18,6 +19,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
   const logRef = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
   const pending = useRef<string | undefined>(undefined);
+  const isAdmin = usePathname().startsWith("/admin");
 
   const close = useCallback(() => {
     setOpen(false);
@@ -62,6 +64,8 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
   useEffect(() => {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight });
   }, [messages]);
+
+  if (isAdmin) return null;
 
   const submit = () => {
     if (!draft.trim() || busy) return;

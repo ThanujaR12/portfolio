@@ -43,7 +43,7 @@ export function ProjectCover({
     <div
       role="img"
       aria-label={`${project.title} cover`}
-      className={`relative h-full w-full overflow-hidden ${className}`}
+      className={`@container relative h-full w-full overflow-hidden ${className}`}
       style={{
         background: `radial-gradient(120% 90% at 15% 10%, hsl(${a} 90% 55% / 0.35), transparent 55%), radial-gradient(100% 80% at 90% 90%, hsl(${b} 85% 60% / 0.4), transparent 60%), #070a16`,
       }}
@@ -65,7 +65,7 @@ export function ProjectCover({
           ))}
         </div>
         <div className={showTitle ? "" : "invisible"}>
-          <p className="font-display text-4xl font-semibold tracking-tight text-white/90 sm:text-5xl">
+          <p className="font-display text-[min(3rem,11cqw)] font-semibold leading-tight tracking-tight text-white/90">
             {project.title}
           </p>
           <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-white/50">

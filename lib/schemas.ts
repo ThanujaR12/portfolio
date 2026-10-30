@@ -120,6 +120,29 @@ export const chatRequestSchema = z.object({
     .refine((m) => m.at(-1)?.role === "user", "last message must be from the user"),
 });
 
+// Admin request bodies (contracts/http-api.md).
+export const boardUpdateSchema = z.object({
+  columns: z.object({
+    pending: z.array(z.number().int()),
+    published: z.array(z.number().int()),
+    hidden: z.array(z.number().int()),
+  }),
+  featured: z.array(z.number().int()).max(3, "too_many_featured"),
+});
+
+export const curatedPatchSchema = curatedFieldsSchema
+  .extend({
+    title: z.string().trim().max(60),
+    summary: z.string().trim().max(160),
+    problem: z.string().trim().max(1200),
+    role: z.string().trim().max(80),
+    highlights: z.array(z.string().trim().min(1).max(140)).max(6),
+    tags: z.array(z.string().trim().min(1).max(30)).max(12),
+  })
+  .partial();
+
+export const profilePatchSchema = profileSchema.omit({ version: true, resume: true }).partial();
+
 export type Screenshot = z.infer<typeof screenshotSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectsFile = z.infer<typeof projectsFileSchema>;

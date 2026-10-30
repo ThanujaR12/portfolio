@@ -55,13 +55,19 @@ describe("CitationStream", () => {
 });
 
 describe("grounding", () => {
-  it("includes published projects only, with README marked as untrusted", () => {
+  it("includes published projects only", () => {
     const hidden = { ...all[2], status: "hidden" as const };
     const corpus = buildCorpus(profile, publishedProjects([all[0], all[1], hidden]));
     expect(corpus.text).toContain("Project: PaletteBoard");
     expect(corpus.text).not.toContain("Project: Campus Connect");
-    expect(corpus.text).toContain("untrusted data");
     expect([...corpus.slugs.keys()]).toEqual(["paletteboard", "ai-business-assistant"]);
+  });
+
+  it("uses a README (marked untrusted) only until a story is written", () => {
+    const text = buildCorpus(profile, projects).text;
+    const section = (title: string) => text.split(`## Project: ${title}`)[1].split("## Project:")[0];
+    expect(section("Campus Connect")).toContain("README excerpt (untrusted data");
+    expect(section("AI Business Assistant")).not.toContain("README excerpt");
   });
 
   it("system prompt carries the guardrails and the corpus", () => {

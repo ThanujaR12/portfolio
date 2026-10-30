@@ -71,7 +71,10 @@ export function GlassNav({ name }: { name: string }) {
         aria-label="Main"
         className="glass mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-3 py-2 sm:px-4"
       >
-        <Link href="/" className="flex items-center gap-2.5 font-display font-semibold tracking-wide">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 font-display font-semibold tracking-wide"
+        >
           <span
             aria-hidden="true"
             className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-cyan to-violet text-xs font-bold text-space"
@@ -105,14 +108,16 @@ export function GlassNav({ name }: { name: string }) {
         </ul>
 
         <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => openChat()}
-            className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3.5 py-1.5 text-sm text-ink transition-colors hover:bg-cyan/20"
-          >
-            <span aria-hidden="true" className="size-1.5 animate-pulse rounded-full bg-cyan" />
-            Ask AI
-          </button>
+          {!pathname.startsWith("/admin") && (
+            <button
+              type="button"
+              onClick={() => openChat()}
+              className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3.5 py-1.5 text-sm text-ink transition-colors hover:bg-cyan/20"
+            >
+              <span aria-hidden="true" className="size-1.5 animate-pulse rounded-full bg-cyan" />
+              Ask AI
+            </button>
+          )}
           <button
             ref={toggleRef}
             type="button"
@@ -122,7 +127,14 @@ export function GlassNav({ name }: { name: string }) {
             onClick={() => setOpen((o) => !o)}
           >
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-            <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="size-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+            >
               {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
             </svg>
           </button>

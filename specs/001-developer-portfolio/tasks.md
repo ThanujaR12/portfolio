@@ -31,8 +31,8 @@ description: "Task list for the Developer Portfolio"
 ## Phase 2: Foundational (blocks all stories)
 
 - [x] T006 Define zod schemas for Project, Screenshot, Profile, SyncRun, ChatRequest, ContactMessage in `lib/schemas.ts` (per data-model.md + content-schema.md, including invariants)
-- [ ] T007 Implement content store `lib/content/store.ts`: `CONTENT_SOURCE=fs` (read/write `content/`) and `github` (Contents API with sha, retry-once on 409), cached with tag `content` _(partial: read path done for fs + github; write path lands with US4)_
-- [ ] T008 [P] Implement GitHub client `lib/github/client.ts`, `lib/github/repos.ts` (list public repos, languages, README excerpt) cached with tag `github` _(deferred to US4 sync; stats strip derives from synced content per R9)_
+- [x] T007 Implement content store `lib/content/store.ts`: `CONTENT_SOURCE=fs` (read/write `content/`) and `github` (Contents API with sha, retry-once on 409), cached with tag `content`
+- [x] T008 [P] Implement GitHub client `lib/github/client.ts`, `lib/github/repos.ts` (list public repos, languages, README excerpt) cached with tag `github`
 - [x] T009 Implement `lib/content/merge.ts` (GitHub ⊕ curated → `PortfolioProject` view model with all fallbacks) + unit tests `tests/unit/merge.test.ts`
 - [x] T010 [P] Implement `lib/content/skills.ts` (alias + category maps, counts) + unit tests `tests/unit/skills.test.ts`
 - [x] T011 Seed `content/projects.json` and `content/profile.json` with the 3 current repos (PaletteBoard, campus-connect-app, AI-business-Assistant-) and placeholder profile copy
@@ -93,14 +93,14 @@ description: "Task list for the Developer Portfolio"
 
 **Goal**: GitHub-sign-in admin board + sync. **Independent test**: V9–V10.
 
-- [ ] T036 [US4] `lib/auth.ts` (Auth.js v5 GitHub, allowlist in `signIn`, `requireOwner()`), `app/api/auth/[...nextauth]/route.ts`, `app/admin/signin/page.tsx` + unit test for allowlist
-- [ ] T037 [P] [US4] `lib/sync/reconcile.ts` (pure; new→pending, fork→hidden suggestion, removed flag/hide, field refresh) + unit tests `tests/unit/reconcile.test.ts`
-- [ ] T038 [US4] `lib/sync/run.ts`, `app/api/admin/sync/route.ts`, `app/api/cron/sync/route.ts` (CRON_SECRET), `vercel.json` daily cron
-- [ ] T039 [US4] `app/api/admin/projects/route.ts` (board PATCH, featured ≤ 3) and `projects/[id]/route.ts` (curated PATCH, slug rules), revalidateTag
-- [ ] T040 [P] [US4] `app/api/admin/uploads/route.ts` (type/size checks, WebP via `sharp`, commit), `profile/route.ts`, `resume/route.ts` (PDF text extraction)
-- [ ] T041 [US4] `components/admin/Board.tsx`, `Column.tsx`, `ProjectCard.tsx` with @dnd-kit (keyboard sensor), `SyncBar.tsx` (Sync now, last sync, errors, flags)
-- [ ] T042 [US4] `components/admin/SideEditor.tsx` + `CardPreview.tsx` (live preview, screenshot upload/reorder/cover, unsaved-change guard on session expiry); `app/admin/page.tsx` guarded server-side
-- [ ] T043 [US4] e2e `tests/e2e/admin.spec.ts`: signed-out redirect, non-owner 403 on every admin route, owner publish/feature flow (fs content source, mocked session)
+- [x] T036 [US4] `lib/auth.ts` (Auth.js v5 GitHub, allowlist in `signIn`, `requireOwner()`), `app/api/auth/[...nextauth]/route.ts`, `app/admin/signin/page.tsx` + unit test for allowlist
+- [x] T037 [P] [US4] `lib/sync/reconcile.ts` (pure; new→pending, fork→hidden suggestion, removed flag/hide, field refresh) + unit tests `tests/unit/reconcile.test.ts`
+- [x] T038 [US4] `lib/sync/run.ts`, `app/api/admin/sync/route.ts`, `app/api/cron/sync/route.ts` (CRON_SECRET), `vercel.json` daily cron
+- [x] T039 [US4] `app/api/admin/projects/route.ts` (board PATCH, featured ≤ 3) and `projects/[id]/route.ts` (curated PATCH, slug rules), revalidateTag
+- [x] T040 [P] [US4] `app/api/admin/uploads/route.ts` (type/size checks, WebP via `sharp`, commit), `profile/route.ts`, `resume/route.ts` (PDF text extraction)
+- [x] T041 [US4] `components/admin/Board.tsx`, `Column.tsx`, `ProjectCard.tsx` with @dnd-kit (keyboard sensor), `SyncBar.tsx` (Sync now, last sync, errors, flags)
+- [x] T042 [US4] `components/admin/SideEditor.tsx` + `CardPreview.tsx` (live preview, screenshot upload/reorder/cover, unsaved-change guard on session expiry); `app/admin/page.tsx` guarded server-side
+- [x] T043 [US4] e2e `tests/e2e/admin.spec.ts`: signed-out redirect, non-owner 403 on every admin route, owner publish/feature flow (fs content source, mocked session)
 
 ---
 
