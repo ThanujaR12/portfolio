@@ -22,7 +22,7 @@ option per the owner's standing preference; design choices are in spec.md → Cl
 ## R2. AI provider and grounding
 
 - **Decision**: Google Gemini free tier via `@google/genai`, model from env `GEMINI_MODEL`
-  (default `gemini-2.5-flash`). Optional fallback to Groq free tier if `GROQ_API_KEY` is set.
+  (default alias `gemini-flash-latest`, which tracks the current free-tier Flash model). Without a key, an offline rule-based provider (`lib/ai/local.ts`) answers from the same content, so the assistant degrades to simpler — never invented — answers instead of disappearing.
   Grounding = "context stuffing": the full corpus (profile, resume text, each published project's
   curated fields + README excerpt ≤ 4,000 chars) is under ~30k tokens, so no vector DB/embeddings.
 - **Output protocol**: The model streams plain prose, then a final line

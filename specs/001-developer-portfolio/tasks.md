@@ -79,13 +79,13 @@ description: "Task list for the Developer Portfolio"
 
 **Goal**: Grounded, streaming, cited assistant. **Independent test**: V6–V8.
 
-- [ ] T029 [P] [US3] `lib/ai/corpus.ts` (published projects + profile + resume text → `<portfolio>` block) and `lib/ai/prompt.ts` (system prompt per research R2)
-- [ ] T030 [P] [US3] `lib/ai/citations.ts` (parse/strip `CITATIONS:` line, validate slugs) + unit tests `tests/unit/citations.test.ts`, `tests/unit/prompt.test.ts`
-- [ ] T031 [P] [US3] `lib/ai/gemini.ts` provider + `mock` provider selected by `AI_PROVIDER`
-- [ ] T032 [P] [US3] `lib/ratelimit.ts` (Upstash sliding window, salted IP hash, in-memory fallback) + unit test
-- [ ] T033 [US3] `app/api/chat/route.ts`: validate, rate-limit, stream SSE `token`/`citations`/`done`, errors 400/429/503
-- [ ] T034 [US3] `components/chat/ChatPanel.tsx`, `MessageList.tsx`, `SuggestedQuestions.tsx`, `ChatLauncher.tsx` (floating button, side panel, Esc/focus return, AI-guide label), wire `HeroAsk.tsx` to open panel with question
-- [ ] T035 [US3] e2e `tests/e2e/chat.spec.ts` (mock provider): hero ask → streamed answer + citation link; out-of-scope decline; 429 message
+- [x] T029 [P] [US3] `lib/ai/corpus.ts` (published projects + profile + resume text → `<portfolio>` block) and `lib/ai/prompt.ts` (system prompt per research R2)
+- [x] T030 [P] [US3] `lib/ai/citations.ts` (parse/strip `CITATIONS:` line, validate slugs) + unit tests `tests/unit/citations.test.ts`, `tests/unit/prompt.test.ts`
+- [x] T031 [P] [US3] `lib/ai/gemini.ts` provider + `mock` provider selected by `AI_PROVIDER`
+- [x] T032 [P] [US3] `lib/ratelimit.ts` (Upstash sliding window, salted IP hash, in-memory fallback) + unit test
+- [x] T033 [US3] `app/api/chat/route.ts`: validate, rate-limit, stream SSE `token`/`citations`/`done`, errors 400/429/503
+- [x] T034 [US3] `components/chat/ChatPanel.tsx`, `MessageList.tsx`, `SuggestedQuestions.tsx`, `ChatLauncher.tsx` (floating button, side panel, Esc/focus return, AI-guide label), wire `HeroAsk.tsx` to open panel with question
+- [x] T035 [US3] e2e `tests/e2e/chat.spec.ts` (mock provider): hero ask → streamed answer + citation link; out-of-scope decline; 429 message
 
 ---
 

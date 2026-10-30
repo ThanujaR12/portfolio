@@ -107,6 +107,19 @@ export const syncLogFileSchema = z.object({
   runs: z.array(syncRunSchema).max(30),
 });
 
+export const chatRequestSchema = z.object({
+  messages: z
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().trim().min(1).max(1000),
+      }),
+    )
+    .min(1)
+    .max(10)
+    .refine((m) => m.at(-1)?.role === "user", "last message must be from the user"),
+});
+
 export type Screenshot = z.infer<typeof screenshotSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectsFile = z.infer<typeof projectsFileSchema>;

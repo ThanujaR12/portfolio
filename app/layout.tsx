@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <GlassNav name={profile.name} />
         <main id="main">{children}</main>
         <Footer profile={profile} />
-        <ChatLauncher />
+        <ChatLauncher name={profile.name} suggestions={profile.suggestedQuestions} />
       </body>
     </html>
   );
