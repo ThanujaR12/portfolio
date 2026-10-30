@@ -19,11 +19,9 @@ export const getPortfolio = cache(async () => {
     cover: p.cover && withUrl(p.cover),
     screenshots: p.screenshots.map(withUrl),
   }));
-  const profile = {
-    ...rawProfile,
-    photo: rawProfile.photo && assetUrl(rawProfile.photo),
-    resume: { ...rawProfile.resume, path: assetUrl(rawProfile.resume.path) },
-  };
+  // The resume stays on the site's own origin: GitHub's raw host serves PDFs as downloads,
+  // and the commit that replaces it redeploys the site within about a minute.
+  const profile = { ...rawProfile, photo: rawProfile.photo && assetUrl(rawProfile.photo) };
 
   // Stats come from the synced repo list, so they cost no GitHub calls per request (R9).
   const onGitHub = all.filter((p) => !p.flags.includes("removed-from-github"));

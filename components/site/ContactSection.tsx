@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ContactForm } from "@/components/site/ContactForm";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { Profile } from "@/lib/schemas";
 
@@ -25,20 +27,29 @@ export function ContactSection({ profile }: { profile: Profile }) {
             </>
           }
         />
-        <ul className="grid gap-4 sm:grid-cols-3">
-          {links.map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                {...(!l.href.startsWith("mailto:") && { target: "_blank", rel: "noopener noreferrer" })}
-                className="glass glow-hover block rounded-2xl p-5"
-              >
-                <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{l.label}</span>
-                <span className="mt-2 block truncate text-ink">{l.value}</span>
-              </a>
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+          <ContactForm fallbackEmail={profile.links.email} />
+          <ul className="flex flex-col gap-4">
+            {links.map((l) => (
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  {...(!l.href.startsWith("mailto:") && { target: "_blank", rel: "noopener noreferrer" })}
+                  className="glass glow-hover block rounded-2xl p-5"
+                >
+                  <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{l.label}</span>
+                  <span className="mt-2 block truncate text-ink">{l.value}</span>
+                </a>
+              </li>
+            ))}
+            <li>
+              <Link href="/resume" className="glass glow-hover block rounded-2xl p-5">
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Resume</span>
+                <span className="mt-2 block text-ink">View or download →</span>
+              </Link>
             </li>
-          ))}
-        </ul>
+          </ul>
+        </div>
       </div>
     </section>
   );

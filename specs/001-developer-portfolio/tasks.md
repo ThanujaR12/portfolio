@@ -108,10 +108,10 @@ description: "Task list for the Developer Portfolio"
 
 **Independent test**: V11.
 
-- [ ] T044 [P] [US5] `app/resume/page.tsx` (inline PDF embed with fallback link, Download button)
-- [ ] T045 [P] [US5] `lib/email.ts` (Resend; console log when unset) and `app/api/contact/route.ts` (zod, honeypot, min-time, rate limit)
-- [ ] T046 [US5] Contact form in `components/site/ContactSection.tsx` with inline field errors and success state
-- [ ] T047 [US5] e2e `tests/e2e/contact.spec.ts`: resume download, valid/invalid submissions
+- [x] T044 [P] [US5] `app/resume/page.tsx` (inline PDF embed with fallback link, Download button)
+- [x] T045 [P] [US5] `lib/email.ts` (Resend; console log when unset) and `app/api/contact/route.ts` (zod, honeypot, min-time, rate limit)
+- [x] T046 [US5] Contact form in `components/site/ContactSection.tsx` with inline field errors and success state
+- [x] T047 [US5] e2e `tests/e2e/contact.spec.ts`: resume download, valid/invalid submissions
 
 ---
 

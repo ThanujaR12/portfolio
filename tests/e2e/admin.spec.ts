@@ -1,4 +1,4 @@
-import { copyFileSync, readdirSync, rmSync } from "node:fs";
+import { copyFileSync, existsSync, readdirSync, rmSync } from "node:fs";
 import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, type Page, test } from "@playwright/test";
@@ -10,13 +10,17 @@ import sharp from "sharp";
 
 const CONTENT = ["projects.json", "profile.json", "sync-log.json"].map((f) => path.join("content", f));
 const UPLOADS = path.join("public", "uploads");
+const RESUME = path.join("public", "resume.pdf");
 let uploadsBefore: Set<string>;
+let hadResume: boolean;
 
 test.describe.configure({ mode: "serial" });
 
 test.beforeAll(() => {
   for (const f of CONTENT) copyFileSync(f, `${f}.e2e-backup`);
   uploadsBefore = new Set(readdirSync(UPLOADS));
+  hadResume = existsSync(RESUME);
+  if (hadResume) copyFileSync(RESUME, `${RESUME}.e2e-backup`);
 });
 
 test.afterAll(() => {
@@ -25,7 +29,34 @@ test.afterAll(() => {
     rmSync(`${f}.e2e-backup`);
   }
   for (const f of readdirSync(UPLOADS)) if (!uploadsBefore.has(f)) rmSync(path.join(UPLOADS, f));
+  if (hadResume) {
+    copyFileSync(`${RESUME}.e2e-backup`, RESUME);
+    rmSync(`${RESUME}.e2e-backup`);
+  } else rmSync(RESUME, { force: true });
 });
+
+/** A tiny valid one-page PDF containing the given line of text. */
+function makePdf(text: string): Buffer {
+  const stream = `BT /F1 18 Tf 72 720 Td (${text}) Tj ET`;
+  const objects = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>",
+    `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`,
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+  ];
+  let pdf = "%PDF-1.4\n";
+  const offsets = objects.map((body, i) => {
+    const at = pdf.length;
+    pdf += `${i + 1} 0 obj\n${body}\nendobj\n`;
+    return at;
+  });
+  const xref = pdf.length;
+  pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  for (const o of offsets) pdf += `${String(o).padStart(10, "0")} 00000 n \n`;
+  pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+  return Buffer.from(pdf, "latin1");
+}
 
 async function signIn(page: Page, who: "owner" | "other user") {
   await page.goto("/admin/signin");
@@ -131,6 +162,29 @@ test("owner edits the profile and the home page updates", async ({ page }) => {
   await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
   await page.goto("/");
   await expect(page.getByText("Open to Summer 2027 software engineering internships.").first()).toBeVisible();
+});
+
+test("owner uploads a resume; the resume page shows it and Ask AI can use it", async ({ page }) => {
+  await signIn(page, "owner");
+  await page.getByRole("tab", { name: "Profile & resume" }).click();
+  await page.locator('input[accept="application/pdf"]').setInputFiles({
+    name: "resume.pdf",
+    mimeType: "application/pdf",
+    buffer: makePdf("E2E Test Resume - Skills: Kubernetes"),
+  });
+  await expect(page.getByText("The AI guide now knows its contents")).toBeVisible();
+
+  await page.goto("/resume");
+  await expect(page.getByRole("link", { name: "Download PDF" })).toHaveAttribute("href", "/resume.pdf");
+  await page.getByText("Text version").click();
+  await expect(page.getByText("E2E Test Resume - Skills: Kubernetes")).toBeVisible();
+  const pdf = await page.request.get("/resume.pdf");
+  expect(pdf.headers()["content-type"]).toContain("application/pdf");
+
+  const bad = await page.request.post("/api/admin/resume", {
+    multipart: { file: { name: "x.pdf", mimeType: "application/pdf", buffer: Buffer.from("not a pdf") } },
+  });
+  expect(bad.status()).toBe(400);
 });
 
 test("Sync now reports the result", async ({ page }) => {

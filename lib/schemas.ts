@@ -120,6 +120,19 @@ export const chatRequestSchema = z.object({
     .refine((m) => m.at(-1)?.role === "user", "last message must be from the user"),
 });
 
+export const contactMessageSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your name.").max(80, "Keep your name under 80 characters."),
+  email: z.email("Please enter a valid email address.").max(200),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Please write at least a sentence (10+ characters).")
+    .max(2000, "Keep the message under 2,000 characters."),
+  // Honeypot: real visitors never see or fill this field.
+  website: z.string().max(200).optional().default(""),
+  startedAt: z.number().int().nonnegative(),
+});
+
 // Admin request bodies (contracts/http-api.md).
 export const boardUpdateSchema = z.object({
   columns: z.object({

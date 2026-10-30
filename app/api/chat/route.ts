@@ -46,24 +46,34 @@ export async function POST(request: Request) {
   }
 
   const encoder = new TextEncoder();
-  const send = (controller: ReadableStreamDefaultController, event: string, data: object) =>
-    controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
+  // Set when the visitor closes the panel or leaves mid-answer.
+  let disconnected = false;
 
   const body = new ReadableStream({
     async start(controller) {
+      const send = (event: string, data: object) => {
+        if (!disconnected) controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
+      };
       const parser = new CitationStream();
-      const emit = (text: string) => text && send(controller, "token", { t: text });
+      const emit = (text: string) => text && send("token", { t: text });
       try {
-        for (let r = first; !r.done; r = await iterator.next()) emit(parser.push(r.value));
+        for (let r = first; !r.done && !disconnected; r = await iterator.next()) emit(parser.push(r.value));
+        if (disconnected) return;
         const { text, slugs } = parser.finish();
         emit(text);
-        send(controller, "citations", { projects: validateCitations(slugs, corpus.slugs) });
+        send("citations", { projects: validateCitations(slugs, corpus.slugs) });
       } catch (e) {
+        if (disconnected) return;
         console.error(`chat: ${provider.name} stream failed`, e);
-        send(controller, "error", { code: "ai_unavailable" });
+        send("error", { code: "ai_unavailable" });
       }
-      send(controller, "done", {});
-      controller.close();
+      send("done", {});
+      if (!disconnected) controller.close();
+    },
+    cancel() {
+      // Stop pulling from the AI provider so an abandoned answer doesn't keep running.
+      disconnected = true;
+      void iterator.return?.();
     },
   });
 
