@@ -124,12 +124,18 @@ export default async function AboutPage() {
           <BigTitle id="approach-title">Approach</BigTitle>
           <ol className="mt-14 divide-y divide-line border-y border-line">
             {about.principles.map((p, i) => (
-              <li key={p.word} data-reveal className="grid items-center gap-4 py-10 md:grid-cols-[3rem_minmax(0,1fr)_minmax(0,1fr)] md:gap-10">
+              // Word above its text until xl, where there is room for both side by side; the word
+              // scales with the viewport so it never runs into the paragraph.
+              <li
+                key={p.word}
+                data-reveal
+                className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline gap-x-6 gap-y-4 py-10 xl:grid-cols-[3rem_minmax(0,1.15fr)_minmax(0,1fr)] xl:items-center xl:gap-x-10"
+              >
                 <span className="font-mono text-sm text-accent">{String(i + 1).padStart(2, "0")}</span>
-                <p className="font-display text-6xl font-bold uppercase tracking-[-0.03em] sm:text-7xl md:text-8xl">
+                <p className="whitespace-nowrap font-display text-[clamp(3rem,9vw,6rem)] font-bold uppercase leading-none tracking-[-0.03em]">
                   <FillWord>{p.word}</FillWord>
                 </p>
-                <p className="text-lg leading-relaxed text-ink/80">{p.text}</p>
+                <p className="col-start-2 max-w-2xl text-lg leading-relaxed text-ink/80 xl:col-start-3">{p.text}</p>
               </li>
             ))}
           </ol>

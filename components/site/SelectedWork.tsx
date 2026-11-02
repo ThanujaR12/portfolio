@@ -41,7 +41,7 @@ export function SelectedWork({ projects }: { projects: PortfolioProject[] }) {
                   <p className="eyebrow text-muted">
                     {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")} · {p.year}
                   </p>
-                  <h3 className="mt-3 font-display text-4xl font-semibold tracking-tight md:text-5xl">
+                  <h3 className="mt-3 font-display text-[clamp(2rem,3.6vw,3rem)] font-semibold leading-tight tracking-tight [overflow-wrap:anywhere]">
                     <Link href={`/projects/${p.slug}`} className="hover:text-accent">
                       {p.title}
                     </Link>
