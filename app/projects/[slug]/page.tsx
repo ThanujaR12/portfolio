@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const markdownClass =
-  "space-y-4 leading-relaxed text-ink/90 [&_a]:text-cyan [&_a]:underline [&_code]:font-mono [&_code]:text-sm [&_h1]:font-display [&_h1]:text-xl [&_h2]:font-display [&_h2]:text-lg [&_strong]:text-ink [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5";
+  "space-y-4 leading-relaxed text-ink/90 [&_a]:text-accent [&_a]:underline [&_code]:font-mono [&_code]:text-sm [&_h1]:font-display [&_h1]:text-xl [&_h2]:font-display [&_h2]:text-lg [&_strong]:text-ink [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5";
 
 export default async function ProjectPage({ params }: Props) {
   const found = await findProject((await params).slug);
@@ -64,7 +64,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <article className="px-4 pb-24 pt-24 sm:px-6">
       <div className="mx-auto max-w-6xl">
-        <Link href="/#projects" className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-cyan">
+        <Link href="/work" className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-accent">
           ← All projects
         </Link>
 
@@ -73,7 +73,7 @@ export default async function ProjectPage({ params }: Props) {
           <div className="aspect-[4/3] sm:aspect-[21/9]">
             <ProjectCover project={project} sizes="(min-width: 1152px) 1152px, 100vw" priority showTitle={false} />
           </div>
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-space via-space/80 to-transparent p-5 pt-24 sm:p-8 sm:pt-32">
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas via-canvas/80 to-transparent p-5 pt-24 sm:p-8 sm:pt-32">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-6xl">{project.title}</h1>
@@ -92,7 +92,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Quick facts */}
         <dl className="glass mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl md:grid-cols-4">
           {facts.map((f) => (
-            <div key={f.label} className="bg-space/40 p-4 sm:p-5">
+            <div key={f.label} className="bg-canvas/40 p-4 sm:p-5">
               <dt className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-muted">{f.label}</dt>
               <dd className="mt-1.5 text-sm text-ink sm:text-base">{f.value}</dd>
             </div>
@@ -112,8 +112,8 @@ export default async function ProjectPage({ params }: Props) {
             <GlassPanel label="Highlights" title="What it does well">
               <ul className="grid gap-3 sm:grid-cols-2">
                 {project.highlights.map((h) => (
-                  <li key={h} className="flex gap-3 rounded-2xl border border-line bg-white/[0.02] p-4">
-                    <span aria-hidden="true" className="text-cyan">✦</span>
+                  <li key={h} className="flex gap-3 rounded-2xl border border-line bg-ink/[0.02] p-4">
+                    <span aria-hidden="true" className="text-accent">✦</span>
                     <span className="text-ink/90">{h}</span>
                   </li>
                 ))}
@@ -141,8 +141,8 @@ export default async function ProjectPage({ params }: Props) {
               {project.technologies.map((t) => (
                 <li key={t}>
                   <Link
-                    href={`/?tech=${encodeURIComponent(t)}#projects`}
-                    className="inline-block rounded-full border border-line px-3 py-1.5 font-mono text-xs transition-colors hover:border-cyan/50 hover:text-cyan"
+                    href={`/work?tech=${encodeURIComponent(t)}#projects`}
+                    className="inline-block rounded-full border border-line px-3 py-1.5 font-mono text-xs transition-colors hover:border-accent/50 hover:text-accent"
                   >
                     {t}
                   </Link>

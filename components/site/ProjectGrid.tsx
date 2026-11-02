@@ -84,7 +84,7 @@ export function ProjectGrid({
             className="glass rounded-xl px-3 py-2 text-base text-ink sm:text-sm"
           >
             {SORTS.map((s) => (
-              <option key={s.value} value={s.value} className="bg-space-2">
+              <option key={s.value} value={s.value} className="bg-surface">
                 {s.label}
               </option>
             ))}
@@ -110,7 +110,7 @@ export function ProjectGrid({
       ) : (
         <div className="glass rounded-2xl p-10 text-center text-muted">
           No projects match that combination.{" "}
-          <button type="button" onClick={() => update({ tech: [] })} className="text-cyan underline">
+          <button type="button" onClick={() => update({ tech: [] })} className="text-accent underline">
             Clear filters
           </button>
         </div>
@@ -122,7 +122,7 @@ export function ProjectGrid({
 function chipClass(active: boolean) {
   return `rounded-full border px-3.5 py-1.5 font-mono text-xs transition-colors ${
     active
-      ? "border-cyan/60 bg-cyan/15 text-ink shadow-[0_0_20px_-6px_rgb(34_211_238/0.8)]"
-      : "border-line text-muted hover:border-cyan/40 hover:text-ink"
+      ? "border-accent/60 bg-accent/15 text-ink"
+      : "border-line text-muted hover:border-accent/40 hover:text-ink"
   }`;
 }

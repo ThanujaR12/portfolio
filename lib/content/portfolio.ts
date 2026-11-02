@@ -1,7 +1,8 @@
 import "server-only";
 import { cache } from "react";
 import { languagesBySize, publishedProjects } from "@/lib/content/merge";
-import { buildSkills } from "@/lib/content/skills";
+import { buildJourney } from "@/lib/content/journey";
+import { buildSkills, SKILL_CATEGORIES } from "@/lib/content/skills";
 import { assetUrl, readContent } from "@/lib/content/store";
 
 export type GitHubStats = { repoCount: number; topLanguages: string[]; lastPushAt: string | null };
@@ -37,11 +38,20 @@ export const getPortfolio = cache(async () => {
     lastPushAt: onGitHub.map((p) => p.github.pushedAt).sort().at(-1) ?? null,
   };
 
+  const featured = projects.filter((p) => p.featured).slice(0, 3);
+  const skills = buildSkills(projects);
   return {
     profile,
     projects,
-    featured: projects.filter((p) => p.featured).slice(0, 3),
-    skills: buildSkills(projects),
+    featured,
+    // Home "Selected work": featured first, topped up to three with the next published ones.
+    selected: [...featured, ...projects.filter((p) => !p.featured)].slice(0, 3),
+    skills,
+    // Filter chips: every skill, most-used first.
+    technologies: SKILL_CATEGORIES.flatMap((c) => skills[c])
+      .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+      .map((s) => s.name),
+    journey: buildJourney(profile, projects),
     stats,
   };
 });

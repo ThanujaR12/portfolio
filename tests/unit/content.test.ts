@@ -26,3 +26,24 @@ describe("content files", () => {
     expect(result.success).toBe(false);
   });
 });
+
+describe("profile updates", () => {
+  it("contain only the fields sent, so an edit never resets other hero fields to defaults", async () => {
+    const { profilePatchSchema } = await import("@/lib/schemas");
+    expect(profilePatchSchema.parse({ name: "X" })).toEqual({ name: "X" });
+  });
+
+  it("older profile files without hero fields still load with defaults", async () => {
+    const { profileSchema } = await import("@/lib/schemas");
+    const { statement: _s, openTo: _o, location: _l, ...old } = read("profile.json");
+    const p = profileSchema.parse(old);
+    expect(p.location.timeZone).toBe("America/Chicago");
+    expect(p.statement.length).toBeGreaterThan(0);
+  });
+
+  it("rejects an unknown time zone", async () => {
+    const { profileSchema } = await import("@/lib/schemas");
+    const p = read("profile.json");
+    expect(profileSchema.safeParse({ ...p, location: { city: "X", timeZone: "Mars/Olympus" } }).success).toBe(false);
+  });
+});

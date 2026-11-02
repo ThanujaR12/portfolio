@@ -5,8 +5,8 @@ import type { PortfolioProject } from "@/lib/content/merge";
 function hues(slug: string): [number, number] {
   let h = 0;
   for (const c of slug) h = (h * 31 + c.charCodeAt(0)) % 360;
-  const a = 185 + (h % 40); // cyan → teal range
-  const b = 255 + (h % 45); // violet → magenta range
+  const a = 210 + (h % 30); // blue range
+  const b = 265 + (h % 60); // violet → rose range
   return [a, b];
 }
 
@@ -45,7 +45,7 @@ export function ProjectCover({
       aria-label={`${project.title} cover`}
       className={`@container relative h-full w-full overflow-hidden ${className}`}
       style={{
-        background: `radial-gradient(120% 90% at 15% 10%, hsl(${a} 90% 55% / 0.35), transparent 55%), radial-gradient(100% 80% at 90% 90%, hsl(${b} 85% 60% / 0.4), transparent 60%), #070a16`,
+        background: `radial-gradient(110% 90% at 12% 8%, hsl(${a} 95% 82% / 0.9), transparent 60%), radial-gradient(100% 85% at 92% 92%, hsl(${b} 90% 85% / 0.85), transparent 62%), linear-gradient(160deg, #ffffff, #f2f3f7)`,
       }}
     >
       <div
@@ -53,7 +53,7 @@ export function ProjectCover({
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage:
-            "linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px)",
+            "linear-gradient(rgb(0 0 0 / 0.05) 1px, transparent 1px), linear-gradient(90deg, rgb(0 0 0 / 0.05) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
           maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
         }}
@@ -61,14 +61,14 @@ export function ProjectCover({
       <div aria-hidden="true" className="absolute inset-0 flex flex-col justify-between p-5">
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
-            <span key={i} className="size-2 rounded-full bg-white/20" />
+            <span key={i} className="size-2 rounded-full bg-ink/20" />
           ))}
         </div>
         <div className={showTitle ? "" : "invisible"}>
-          <p className="font-display text-[min(3rem,11cqw)] font-semibold leading-tight tracking-tight text-white/90">
+          <p className="font-display text-[min(3rem,11cqw)] font-semibold leading-tight tracking-tight text-ink">
             {project.title}
           </p>
-          <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-white/50">
+          <p className="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-ink/60">
             {project.topLanguages.join(" · ")}
           </p>
         </div>

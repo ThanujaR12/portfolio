@@ -55,9 +55,9 @@ export function SyncBar({
             <>
               Last sync {when.format(new Date(run.at))}{" "}
               {run.ok ? (
-                <span className="text-emerald-300">✓</span>
+                <span className="text-emerald-700">✓</span>
               ) : (
-                <span className="text-amber-300">failed: {run.error}</span>
+                <span className="text-amber-700">failed: {run.error}</span>
               )}
             </>
           ) : (
@@ -65,15 +65,15 @@ export function SyncBar({
           )}
         </p>
         <p className="mt-1 flex flex-wrap gap-3 font-mono text-xs text-muted">
-          {pending > 0 && <span className="text-cyan">{pending} pending review</span>}
+          {pending > 0 && <span className="text-accent">{pending} pending review</span>}
           {needsContent > 0 && <span>{needsContent} need content</span>}
-          {removed > 0 && <span className="text-amber-300">{removed} removed from GitHub</span>}
+          {removed > 0 && <span className="text-amber-700">{removed} removed from GitHub</span>}
         </p>
         <p role="status" className="mt-2">
           {note && (
             <span
               className={`inline-block rounded-lg px-3 py-1.5 text-sm ${
-                note.ok ? "bg-emerald-400/15 text-emerald-200" : "bg-amber-400/15 text-amber-200"
+                note.ok ? "bg-emerald-400/15 text-emerald-800" : "bg-amber-400/15 text-amber-800"
               }`}
             >
               {note.ok ? "✓ " : ""}
@@ -86,7 +86,7 @@ export function SyncBar({
         type="button"
         onClick={sync}
         disabled={busy}
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan to-violet px-4 py-2 text-sm font-medium text-space disabled:opacity-60"
+        className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-accent to-ai px-4 py-2 text-sm font-medium text-canvas disabled:opacity-60"
       >
         <span aria-hidden="true" className={busy ? "animate-spin" : ""}>
           ⟳

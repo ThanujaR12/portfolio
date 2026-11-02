@@ -23,7 +23,7 @@ export default async function AdminPage() {
       <div className="mx-auto max-w-7xl">
         <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-cyan">{"// admin"}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">{"// admin"}</p>
             <h1 className="mt-2 font-display text-3xl font-semibold">Portfolio control room</h1>
           </div>
           <form

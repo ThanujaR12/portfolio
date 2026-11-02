@@ -52,7 +52,7 @@ test.describe("Ask AI (US3)", () => {
     await expect(panel.getByRole("link", { name: "Go to Contact" })).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(panel).toBeHidden();
-    await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.published);
+    await expect(page.locator("#work").getByRole("article")).toHaveCount(content.selected);
   });
 
   test("Escape closes the panel and returns focus", async ({ page }) => {

@@ -189,12 +189,12 @@ function BoardColumn({
   return (
     <section
       aria-labelledby={`col-${column.id}`}
-      className={`glass flex min-h-48 flex-col rounded-2xl p-3 transition-colors ${isOver ? "border-cyan/50" : ""}`}
+      className={`glass flex min-h-48 flex-col rounded-2xl p-3 transition-colors ${isOver ? "border-accent/50" : ""}`}
     >
       <header className="px-2 pb-3 pt-1">
         <h2 id={`col-${column.id}`} className="flex items-center justify-between font-display font-semibold">
           {column.label}
-          <span className="rounded-full bg-white/10 px-2 font-mono text-xs text-muted">{ids.length}</span>
+          <span className="rounded-full bg-ink/10 px-2 font-mono text-xs text-muted">{ids.length}</span>
         </h2>
         <p className="mt-0.5 text-xs text-muted">{column.hint}</p>
       </header>
@@ -235,7 +235,7 @@ function ProjectTile({
     <li
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition }}
-      className={`rounded-xl border border-line bg-space-2/80 p-3 ${isDragging ? "z-10 opacity-80 shadow-2xl" : ""}`}
+      className={`rounded-xl border border-line bg-surface/80 p-3 ${isDragging ? "z-10 opacity-80 shadow-2xl" : ""}`}
     >
       <div className="flex items-start gap-2">
         <button
@@ -259,7 +259,7 @@ function ProjectTile({
                 <span
                   key={f}
                   className={`rounded-full px-2 py-0.5 text-[0.65rem] ${
-                    f === "removed-from-github" ? "bg-amber-400/15 text-amber-200" : "bg-white/10 text-muted"
+                    f === "removed-from-github" ? "bg-amber-400/15 text-amber-800" : "bg-ink/10 text-muted"
                   }`}
                 >
                   {f === "needs-content" ? "needs content" : "removed from GitHub"}
@@ -276,18 +276,18 @@ function ProjectTile({
             aria-pressed={featured}
             aria-label={featured ? `Unfeature ${title}` : `Feature ${title}`}
             title={canFeature ? undefined : "Up to 3 projects can be featured"}
-            className={`text-lg leading-none disabled:opacity-30 ${featured ? "text-cyan" : "text-muted hover:text-ink"}`}
+            className={`text-lg leading-none disabled:opacity-30 ${featured ? "text-accent" : "text-muted hover:text-ink"}`}
           >
             {featured ? "★" : "☆"}
           </button>
         )}
       </div>
       <div className="mt-2.5 flex flex-wrap gap-1.5">
-        <button type="button" onClick={onEdit} className="rounded-lg border border-line px-2.5 py-1 text-xs hover:border-cyan/50">
+        <button type="button" onClick={onEdit} className="rounded-lg border border-line px-2.5 py-1 text-xs hover:border-accent/50">
           Edit
         </button>
         {column !== "published" && (
-          <button type="button" onClick={() => onMove("published")} className="rounded-lg border border-line px-2.5 py-1 text-xs hover:border-cyan/50">
+          <button type="button" onClick={() => onMove("published")} className="rounded-lg border border-line px-2.5 py-1 text-xs hover:border-accent/50">
             Publish
           </button>
         )}

@@ -19,28 +19,28 @@ export default async function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          color: "#E6EAF2",
+          color: "#1D1D1F",
           background:
-            "radial-gradient(circle at 80% 0%, rgba(139,92,246,0.45), transparent 55%), radial-gradient(circle at 0% 100%, rgba(34,211,238,0.35), transparent 50%), #05070F",
+            "radial-gradient(circle at 85% 0%, rgba(205,178,255,0.95), transparent 55%), radial-gradient(circle at 10% 0%, rgba(159,188,255,0.9), transparent 50%), radial-gradient(circle at 100% 100%, rgba(255,191,217,0.8), transparent 50%), #FBFBFD",
         }}
       >
-        <div style={{ display: "flex", fontSize: 26, letterSpacing: 6, color: "#22D3EE" }}>PORTFOLIO</div>
+        <div style={{ display: "flex", fontSize: 26, letterSpacing: 6, color: "#2B5FE0" }}>PORTFOLIO</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 84, fontWeight: 700, lineHeight: 1.05 }}>{profile.name}</div>
-          <div style={{ fontSize: 36, color: "#A8B0C2", marginTop: 18, maxWidth: 1000 }}>{profile.positioning}</div>
+          <div style={{ fontSize: 36, color: "#6E6E73", marginTop: 18, maxWidth: 1000 }}>{profile.positioning}</div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ display: "flex", gap: 12 }}>
             {techs.map((t) => (
               <div
                 key={t}
-                style={{ display: "flex", fontSize: 22, padding: "6px 18px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)" }}
+                style={{ display: "flex", fontSize: 22, padding: "6px 18px", borderRadius: 999, border: "1px solid rgba(0,0,0,0.12)" }}
               >
                 {t}
               </div>
             ))}
           </div>
-          <div style={{ display: "flex", fontSize: 22, color: "#8A93A6" }}>
+          <div style={{ display: "flex", fontSize: 22, color: "#6E6E73" }}>
             {featured.map((p) => p.title).join(" · ")}
           </div>
         </div>

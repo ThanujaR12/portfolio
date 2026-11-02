@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { openChat } from "@/components/chat/events";
+import { openChat, signalAiActivity } from "@/components/chat/events";
 
 export function HeroAsk({ suggestions }: { suggestions: string[] }) {
   const [question, setQuestion] = useState("");
@@ -22,10 +22,10 @@ export function HeroAsk({ suggestions }: { suggestions: string[] }) {
           e.preventDefault();
           ask(question);
         }}
-        className="glass glow-hover flex items-center gap-2 rounded-2xl p-1.5 pl-4 focus-within:ring-2 focus-within:ring-cyan/60 hover:transform-none"
+        className="flex items-center gap-2 rounded-full border border-line bg-surface p-1.5 pl-5 shadow-[0_10px_40px_-18px_rgb(43_95_224/0.45)] transition-shadow focus-within:ring-2 focus-within:ring-accent/40"
       >
-        <span aria-hidden="true" className="font-mono text-sm text-cyan">
-          &gt;_
+        <span aria-hidden="true" className="text-gradient text-base font-semibold">
+          ✦
         </span>
         <label htmlFor="hero-ask" className="sr-only">
           Ask about Thanuja&apos;s work
@@ -33,14 +33,17 @@ export function HeroAsk({ suggestions }: { suggestions: string[] }) {
         <input
           id="hero-ask"
           value={question}
-          onChange={(e) => setQuestion(e.target.value)}
+          onChange={(e) => {
+            setQuestion(e.target.value);
+            signalAiActivity();
+          }}
           maxLength={1000}
-          placeholder="Ask anything about my work…"
+          placeholder="Ask my AI guide anything about my work…"
           className="min-w-0 flex-1 bg-transparent py-2 text-base text-ink placeholder:text-muted focus:outline-none"
         />
         <button
           type="submit"
-          className="shrink-0 rounded-xl bg-gradient-to-r from-cyan to-violet px-4 py-2 text-sm font-medium text-space"
+          className="ai-gradient shrink-0 rounded-full px-5 py-2 text-sm font-medium text-white"
         >
           Ask
         </button>
@@ -51,7 +54,7 @@ export function HeroAsk({ suggestions }: { suggestions: string[] }) {
             <button
               type="button"
               onClick={() => ask(s)}
-              className="rounded-full border border-line px-3 py-1 text-xs text-muted transition-colors hover:border-cyan/50 hover:text-ink"
+              className="rounded-full border border-line bg-surface/70 px-3 py-1 text-xs text-muted transition-colors hover:border-accent/40 hover:text-ink"
             >
               {s}
             </button>

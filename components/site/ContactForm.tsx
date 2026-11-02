@@ -53,12 +53,12 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
   if (state.kind === "sent") {
     return (
       <div role="status" className="glass flex h-full flex-col items-start justify-center gap-3 rounded-3xl p-8">
-        <span aria-hidden="true" className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-cyan to-violet text-xl text-space">
+        <span aria-hidden="true" className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-accent to-ai text-xl text-canvas">
           ✓
         </span>
         <p className="font-display text-2xl font-semibold">Message sent</p>
         <p className="text-muted">Thanks for reaching out. You&apos;ll get a reply by email.</p>
-        <button type="button" onClick={() => setState({ kind: "idle" })} className="text-sm text-cyan underline">
+        <button type="button" onClick={() => setState({ kind: "idle" })} className="text-sm text-accent underline">
           Send another message
         </button>
       </div>
@@ -66,8 +66,8 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
   }
 
   const input =
-    "mt-1.5 w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-base text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-cyan/40";
-  const border = (k: keyof Fields) => (errors[k] ? "border-amber-400/60" : "border-line focus:border-cyan/60");
+    "mt-1.5 w-full rounded-xl border bg-ink/[0.03] px-4 py-3 text-base text-ink placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/40";
+  const border = (k: keyof Fields) => (errors[k] ? "border-amber-400/60" : "border-line focus:border-accent/60");
 
   return (
     <form onSubmit={submit} noValidate aria-labelledby="contact-form-title" className="glass space-y-4 rounded-3xl p-6 sm:p-8">
@@ -95,7 +95,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
             className={`${input} ${border(key)}`}
           />
           {errors[key] && (
-            <p id={`contact-${key}-error`} className="mt-1.5 text-sm text-amber-200">
+            <p id={`contact-${key}-error`} className="mt-1.5 text-sm text-amber-800">
               {errors[key]}
             </p>
           )}
@@ -124,7 +124,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
           {fields.message.length}/2000
         </p>
         {errors.message && (
-          <p id="contact-message-error" className="text-sm text-amber-200">
+          <p id="contact-message-error" className="text-sm text-amber-800">
             {errors.message}
           </p>
         )}
@@ -140,7 +140,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
         <p role="alert" className="rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm">
           {state.message}{" "}
           {!Object.keys(errors).length && (
-            <a href={`mailto:${fallbackEmail}`} className="text-cyan underline">
+            <a href={`mailto:${fallbackEmail}`} className="text-accent underline">
               Email {fallbackEmail}
             </a>
           )}
@@ -149,7 +149,7 @@ export function ContactForm({ fallbackEmail }: { fallbackEmail: string }) {
       <button
         type="submit"
         disabled={state.kind === "sending"}
-        className="w-full rounded-xl bg-gradient-to-r from-cyan to-violet px-5 py-3 text-sm font-medium text-space shadow-[0_8px_30px_-8px_rgb(34_211_238/0.6)] disabled:opacity-60 sm:w-auto"
+        className="w-full rounded-xl bg-gradient-to-r from-accent to-ai px-5 py-3 text-sm font-medium text-canvas disabled:opacity-60 sm:w-auto"
       >
         {state.kind === "sending" ? "Sending…" : "Send message"}
       </button>

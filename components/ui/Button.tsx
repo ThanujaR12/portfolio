@@ -7,9 +7,8 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-[transform,box-shadow,background-color,border-color] duration-200 active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-gradient-to-r from-cyan to-violet text-space shadow-[0_8px_30px_-8px_rgb(34_211_238/0.6)] hover:shadow-[0_10px_40px_-6px_rgb(139_92_246/0.7)]",
-  ghost: "glass text-ink hover:border-cyan/50",
+  primary: "bg-ink text-white shadow-sm hover:bg-ink/85",
+  ghost: "border border-line bg-surface text-ink shadow-sm hover:border-ink/25",
 };
 
 export function ButtonLink({
@@ -37,5 +36,20 @@ export function ExternalButton({
       <span aria-hidden="true">↗</span>
       <span className="sr-only">(opens in a new tab)</span>
     </a>
+  );
+}
+
+/** Underlined uppercase text link with an arrow, e.g. "MORE ABOUT ME ↗". */
+export function ArrowLink({ className = "", children, ...props }: ComponentProps<typeof Link>) {
+  return (
+    <Link
+      className={`eyebrow group inline-flex items-center gap-2 border-b border-ink/30 pb-1 text-ink transition-colors hover:border-accent hover:text-accent ${className}`}
+      {...props}
+    >
+      {children}
+      <span aria-hidden="true" className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+        ↗
+      </span>
+    </Link>
   );
 }

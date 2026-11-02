@@ -21,7 +21,7 @@ export default async function ResumePage() {
       <div className="mx-auto max-w-5xl">
         <header className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-cyan">{"// Resume"}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">{"// Resume"}</p>
             <h1 id="resume-title" className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
               {profile.name}
             </h1>
@@ -35,7 +35,7 @@ export default async function ResumePage() {
               <a
                 href={resume.path}
                 download={fileName}
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-violet px-5 py-2.5 text-sm font-medium text-space shadow-[0_8px_30px_-8px_rgb(34_211_238/0.6)]"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-ai px-5 py-2.5 text-sm font-medium text-canvas"
               >
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14" />
@@ -46,7 +46,7 @@ export default async function ResumePage() {
                 href={resume.path}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-ink hover:border-cyan/50"
+                className="glass inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-ink hover:border-accent/50"
               >
                 Open in new tab <span aria-hidden="true">↗</span>
               </a>
@@ -83,7 +83,7 @@ export default async function ResumePage() {
               section is the fastest way to ask for a copy.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/#featured">See projects</ButtonLink>
+              <ButtonLink href="/#work">See projects</ButtonLink>
               <ButtonLink href="/#contact" variant="ghost">
                 Get in touch
               </ButtonLink>
@@ -99,7 +99,7 @@ function ResumeFallback({ path }: { path: string }) {
   return (
     <div className="glass rounded-2xl p-6 text-center">
       <p className="text-muted">Your browser can&apos;t show the PDF here.</p>
-      <a href={path} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-cyan underline">
+      <a href={path} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-accent underline">
         Open the resume PDF
       </a>
     </div>

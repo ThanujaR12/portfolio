@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { ChatLauncher } from "@/components/chat/ChatLauncher";
 import { GlassNav } from "@/components/site/GlassNav";
+import { RevealObserver } from "@/components/site/Reveal";
 import { Footer } from "@/components/site/Footer";
 import { getPortfolio } from "@/lib/content/portfolio";
 import "./globals.css";
 
-const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk" });
+const display = Inter_Tight({ subsets: ["latin"], variable: "--font-inter-tight" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
@@ -22,16 +23,22 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = { themeColor: "#05070f" };
+export const viewport: Viewport = { themeColor: "#fbfbfd" };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { profile } = await getPortfolio();
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+      <head>
+        {/* Without JavaScript, scroll-reveal content must still be visible. */}
+        <noscript>
+          <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
+      </head>
       <body className="min-h-dvh overflow-x-hidden">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-space-2 focus:px-4 focus:py-2"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-2"
         >
           Skip to content
         </a>
@@ -39,6 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main id="main">{children}</main>
         <Footer profile={profile} />
         <ChatLauncher name={profile.name} suggestions={profile.suggestedQuestions} />
+        <RevealObserver />
       </body>
     </html>
   );

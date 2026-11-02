@@ -37,7 +37,7 @@ export function AdminApp({
             aria-controls={`panel-${t.id}`}
             onClick={() => setTab(t.id)}
             className={`rounded-lg px-4 py-1.5 text-sm transition-colors ${
-              tab === t.id ? "bg-white/10 text-ink" : "text-muted hover:text-ink"
+              tab === t.id ? "bg-ink/10 text-ink" : "text-muted hover:text-ink"
             }`}
           >
             {t.label}

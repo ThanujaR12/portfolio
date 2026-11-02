@@ -93,7 +93,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
             pastHero ? "opacity-100" : "pointer-events-none translate-y-4 opacity-0"
           }`}
         >
-          <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan to-violet px-5 py-3 text-sm font-medium text-space shadow-[0_10px_40px_-8px_rgb(139_92_246/0.8)] transition-transform hover:scale-105">
+          <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent to-ai px-5 py-3 text-sm font-medium text-canvas transition-transform hover:scale-105">
             <ChatIcon />
             Ask AI
           </span>
@@ -105,13 +105,13 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
           role="dialog"
           aria-modal="false"
           aria-labelledby="chat-title"
-          className="fixed inset-x-2 bottom-2 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-3xl border border-line bg-space-2/95 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.9),0_0_60px_-20px_rgb(139_92_246/0.5)] backdrop-blur-xl sm:inset-x-auto sm:bottom-4 sm:right-4 sm:top-4 sm:max-h-none sm:w-[420px]"
+          className="fixed inset-x-2 bottom-2 z-50 flex max-h-[85dvh] flex-col overflow-hidden rounded-3xl border border-line bg-surface/95 backdrop-blur-xl sm:inset-x-auto sm:bottom-4 sm:right-4 sm:top-4 sm:max-h-none sm:w-[420px]"
         >
           <header className="flex items-start justify-between gap-4 border-b border-line p-5">
             <div className="flex items-center gap-3">
               <span
                 aria-hidden="true"
-                className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-cyan to-violet text-space"
+                className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-accent to-ai text-canvas"
               >
                 <ChatIcon />
               </span>
@@ -164,7 +164,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
                       <button
                         type="button"
                         onClick={() => ask(s)}
-                        className="w-full rounded-xl border border-line bg-white/[0.03] px-4 py-2.5 text-left text-sm transition-colors hover:border-cyan/50"
+                        className="w-full rounded-xl border border-line bg-ink/[0.03] px-4 py-2.5 text-left text-sm transition-colors hover:border-accent/50"
                       >
                         {s}
                       </button>
@@ -184,7 +184,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
             }}
             className="border-t border-line p-3"
           >
-            <div className="flex items-end gap-2 rounded-2xl border border-line bg-white/[0.03] p-1.5 focus-within:border-cyan/50">
+            <div className="flex items-end gap-2 rounded-2xl border border-line bg-ink/[0.03] p-1.5 focus-within:border-accent/50">
               <label htmlFor="chat-input" className="sr-only">
                 Your question
               </label>
@@ -207,7 +207,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
               <button
                 type="submit"
                 disabled={busy || !draft.trim()}
-                className="rounded-xl bg-gradient-to-r from-cyan to-violet px-4 py-2 text-sm font-medium text-space disabled:opacity-40"
+                className="rounded-xl bg-gradient-to-r from-accent to-ai px-4 py-2 text-sm font-medium text-canvas disabled:opacity-40"
               >
                 Send
               </button>
@@ -225,7 +225,7 @@ export function ChatLauncher({ name, suggestions }: { name: string; suggestions:
 function Bubble({ message }: { message: Message }) {
   if (message.role === "user") {
     return (
-      <div className="ml-10 rounded-2xl rounded-br-sm bg-cyan/15 px-4 py-2.5 text-sm">
+      <div className="ml-10 rounded-2xl rounded-br-sm bg-accent/15 px-4 py-2.5 text-sm">
         <span className="sr-only">You: </span>
         {message.content}
       </div>
@@ -235,7 +235,7 @@ function Bubble({ message }: { message: Message }) {
     <div className="mr-4">
       <div
         className={`rounded-2xl rounded-bl-sm px-4 py-3 text-sm leading-relaxed ${
-          message.status === "error" ? "border border-amber-400/30 bg-amber-400/10" : "bg-white/5"
+          message.status === "error" ? "border border-amber-400/30 bg-amber-400/10" : "bg-ink/5"
         }`}
       >
         <span className="sr-only">AI guide: </span>
@@ -254,14 +254,14 @@ function Bubble({ message }: { message: Message }) {
             {[0, 1, 2].map((i) => (
               <span
                 key={i}
-                className="size-1.5 animate-pulse rounded-full bg-cyan"
+                className="size-1.5 animate-pulse rounded-full bg-accent"
                 style={{ animationDelay: `${i * 150}ms` }}
               />
             ))}
           </span>
         )}
         {message.status === "error" && (
-          <Link href="/#contact" className="mt-2 inline-block text-cyan underline">
+          <Link href="/#contact" className="mt-2 inline-block text-accent underline">
             Go to Contact
           </Link>
         )}
@@ -274,7 +274,7 @@ function Bubble({ message }: { message: Message }) {
               <li key={c.slug}>
                 <Link
                   href={`/projects/${c.slug}`}
-                  className="inline-flex items-center gap-1 rounded-full border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs transition-colors hover:bg-cyan/20"
+                  className="inline-flex items-center gap-1 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs transition-colors hover:bg-accent/20"
                 >
                   {c.title} <span aria-hidden="true">→</span>
                 </Link>

@@ -165,7 +165,7 @@ export function SideEditor({
     return toPortfolioProject(merged);
   })();
 
-  const field = "w-full rounded-xl border border-line bg-white/[0.03] px-3 py-2 text-base text-ink placeholder:text-muted focus:border-cyan/60 focus:outline-none sm:text-sm";
+  const field = "w-full rounded-xl border border-line bg-ink/[0.03] px-3 py-2 text-base text-ink placeholder:text-muted focus:border-accent/60 focus:outline-none sm:text-sm";
   const label = "block text-xs font-medium text-muted";
 
   return (
@@ -176,7 +176,7 @@ export function SideEditor({
         e.preventDefault();
         close();
       }}
-      className="m-0 ml-auto h-dvh max-h-dvh w-full max-w-3xl border-l border-line bg-space-2 p-0 text-ink backdrop:bg-space/70 backdrop:backdrop-blur-sm"
+      className="m-0 ml-auto h-dvh max-h-dvh w-full max-w-3xl border-l border-line bg-surface p-0 text-ink backdrop:bg-canvas/70 backdrop:backdrop-blur-sm"
     >
       <div className="flex h-full flex-col">
         <header className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
@@ -196,7 +196,7 @@ export function SideEditor({
               type="button"
               onClick={save}
               disabled={!dirty || status.kind === "saving" || uploading}
-              className="rounded-lg bg-gradient-to-r from-cyan to-violet px-4 py-1.5 text-sm font-medium text-space disabled:opacity-40"
+              className="rounded-lg bg-gradient-to-r from-accent to-ai px-4 py-1.5 text-sm font-medium text-canvas disabled:opacity-40"
             >
               {status.kind === "saving" ? "Saving…" : "Save"}
             </button>
@@ -206,7 +206,7 @@ export function SideEditor({
           <p
             role={status.kind === "error" ? "alert" : "status"}
             className={`mx-5 mt-3 rounded-xl px-4 py-2 text-sm ${
-              status.kind === "error" ? "border border-amber-400/30 bg-amber-400/10" : "bg-emerald-400/10 text-emerald-200"
+              status.kind === "error" ? "border border-amber-400/30 bg-amber-400/10" : "bg-emerald-400/10 text-emerald-800"
             }`}
           >
             {status.message}
@@ -297,7 +297,7 @@ export function SideEditor({
                         <button type="button" disabled={i === draft.screenshots.length - 1} onClick={() => moveShot(i, 1)} className="text-muted hover:text-ink disabled:opacity-30">
                           ↓ <span className="sr-only">Move down</span>
                         </button>
-                        <button type="button" onClick={() => set("screenshots", draft.screenshots.filter((_, j) => j !== i))} className="text-amber-300 hover:underline">
+                        <button type="button" onClick={() => set("screenshots", draft.screenshots.filter((_, j) => j !== i))} className="text-amber-700 hover:underline">
                           Remove
                         </button>
                       </div>
@@ -306,7 +306,7 @@ export function SideEditor({
                 ))}
               </ul>
               {draft.screenshots.length < 8 && (
-                <label className="mt-3 inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-line px-3 py-2 text-sm hover:border-cyan/50 focus-within:border-cyan">
+                <label className="mt-3 inline-flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-line px-3 py-2 text-sm hover:border-accent/50 focus-within:border-accent">
                   {uploading ? "Uploading…" : "+ Add screenshots"}
                   <input type="file" accept="image/png,image/jpeg,image/webp" multiple className="sr-only" disabled={uploading} onChange={(e) => upload(e.target.files)} />
                 </label>

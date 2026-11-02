@@ -48,7 +48,7 @@ export function Gallery({ screenshots }: { screenshots: Screenshot[] }) {
           if (e.key === "ArrowLeft") step(-1);
         }}
         onClick={(e) => e.target === dialogRef.current && dialogRef.current?.close()}
-        className="m-auto max-h-[92dvh] w-[min(1200px,94vw)] bg-transparent p-0 backdrop:bg-space/85 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-[92dvh] w-[min(1200px,94vw)] bg-transparent p-0 backdrop:bg-canvas/85 backdrop:backdrop-blur-sm"
       >
         {current && (
           <figure className="glass rounded-2xl p-3">

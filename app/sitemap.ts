@@ -7,6 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { projects } = await getPortfolio();
   return [
     { url: siteUrl, changeFrequency: "weekly", priority: 1 },
+    { url: `${siteUrl}/about`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${siteUrl}/work`, changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/resume`, changeFrequency: "monthly", priority: 0.6 },
     ...projects.map((p) => ({
       url: `${siteUrl}/projects/${p.slug}`,

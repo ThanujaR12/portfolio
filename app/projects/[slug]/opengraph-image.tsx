@@ -20,19 +20,19 @@ export default async function OpengraphImage({ params }: { params: Promise<{ slu
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          color: "#E6EAF2",
+          color: "#1D1D1F",
           background:
-            "radial-gradient(circle at 15% 10%, rgba(34,211,238,0.35), transparent 50%), radial-gradient(circle at 90% 90%, rgba(139,92,246,0.45), transparent 55%), #05070F",
+            "radial-gradient(circle at 10% 0%, rgba(159,188,255,0.9), transparent 50%), radial-gradient(circle at 90% 100%, rgba(205,178,255,0.9), transparent 55%), #FBFBFD",
         }}
       >
-        <div style={{ display: "flex", fontSize: 26, letterSpacing: 6, color: "#22D3EE" }}>
+        <div style={{ display: "flex", fontSize: 26, letterSpacing: 6, color: "#2B5FE0" }}>
           {profile.name.toUpperCase()} · PORTFOLIO
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 88, fontWeight: 700, lineHeight: 1.05 }}>
             {project?.title ?? "Project"}
           </div>
-          <div style={{ fontSize: 34, color: "#A8B0C2", marginTop: 20, maxWidth: 1000 }}>
+          <div style={{ fontSize: 34, color: "#6E6E73", marginTop: 20, maxWidth: 1000 }}>
             {project?.summary ?? ""}
           </div>
         </div>
@@ -45,7 +45,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ slu
                 fontSize: 24,
                 padding: "8px 20px",
                 borderRadius: 999,
-                border: "1px solid rgba(255,255,255,0.2)",
+                border: "1px solid rgba(0,0,0,0.12)",
               }}
             >
               {t}

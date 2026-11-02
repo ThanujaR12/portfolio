@@ -104,7 +104,7 @@ test("owner hides, republishes and features a project from the board", async ({ 
 
   await boardAction(page, () => tile(page, "Published", "Campus Connect").getByRole("button", { name: "Hide" }).click());
   await expect(tile(page, "Hidden", "Campus Connect")).toBeVisible();
-  await page.goto("/");
+  await page.goto("/work");
   await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.published - 1);
 
   await page.goto("/admin");
@@ -112,8 +112,11 @@ test("owner hides, republishes and features a project from the board", async ({ 
   await expect(tile(page, "Published", "Campus Connect")).toBeVisible();
   await boardAction(page, () => page.getByRole("button", { name: "Feature Campus Connect" }).click());
   await expect(page.getByRole("button", { name: "Unfeature Campus Connect" })).toBeVisible();
+  const list = await (await page.request.get("/api/admin/projects")).json();
+  const campus = list.projects.find((p: { slug: string }) => p.slug === "campus-connect");
+  expect(campus.featured).toBe(true);
   await page.goto("/");
-  await expect(page.locator("#featured").getByRole("article")).toHaveCount(Math.min(3, content.featured + 1));
+  await expect(page.locator("#work").getByRole("link", { name: "Campus Connect", exact: true })).toBeVisible();
 });
 
 test("owner edits a case study with a screenshot and sees it live", async ({ page }) => {
@@ -161,8 +164,20 @@ test("owner edits the profile and the home page updates", async ({ page }) => {
   await page.getByLabel("Current focus").fill("Open to Summer 2027 software engineering internships.");
   await page.getByRole("button", { name: "Save profile" }).click();
   await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
-  await page.goto("/");
+  await page.goto("/about");
   await expect(page.getByText("Open to Summer 2027 software engineering internships.").first()).toBeVisible();
+});
+
+test("owner edits the hero statement without losing other hero fields", async ({ page }) => {
+  await signIn(page, "owner");
+  await page.getByRole("tab", { name: "Profile & resume" }).click();
+  await page.getByLabel(/Hero statement/).fill("I build **careful software** for real people.");
+  await page.getByRole("button", { name: "Save profile" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("I build careful software for real people.");
+  await expect(page.getByRole("heading", { level: 1 }).locator("strong")).toHaveText("careful software");
+  await expect(page.getByRole("complementary", { name: "Currently" })).toContainText(content.openTo);
 });
 
 test("owner uploads a resume; the resume page shows it and Ask AI can use it", async ({ page }) => {

@@ -69,7 +69,22 @@ export const projectsFileSchema = z
     }
   });
 
-export const profileSchema = z.object({
+const openToSchema = z.object({ term: z.string().max(40), roles: z.array(z.string().max(30)).max(4) });
+const locationSchema = z.object({
+  city: z.string().max(40),
+  timeZone: z.string().refine((tz) => {
+    try {
+      new Intl.DateTimeFormat("en", { timeZone: tz });
+      return true;
+    } catch {
+      return false;
+    }
+  }, "unknown time zone"),
+});
+
+// Fields without defaults: also the base of profilePatchSchema, so a partial admin edit never
+// fills in (and overwrites) fields it didn't send.
+const profileFields = z.object({
   version: z.literal(1),
   name: z.string().max(60),
   positioning: z.string().max(90),
@@ -90,6 +105,16 @@ export const profileSchema = z.object({
     text: z.string(),
   }),
   suggestedQuestions: z.array(z.string().max(80)).min(3).max(4),
+  statement: z.string().max(160),
+  openTo: openToSchema,
+  location: locationSchema,
+});
+
+// Hero fields (spec 002) get defaults so older content files keep validating.
+export const profileSchema = profileFields.extend({
+  statement: profileFields.shape.statement.default("I design and build **AI-powered products**."),
+  openTo: openToSchema.default({ term: "Internships", roles: ["Software Engineering"] }),
+  location: locationSchema.default({ city: "Nashville", timeZone: "America/Chicago" }),
 });
 
 export const syncRunSchema = z.object({
@@ -154,7 +179,7 @@ export const curatedPatchSchema = curatedFieldsSchema
   })
   .partial();
 
-export const profilePatchSchema = profileSchema.omit({ version: true, resume: true }).partial();
+export const profilePatchSchema = profileFields.omit({ version: true, resume: true }).partial();
 
 export type Screenshot = z.infer<typeof screenshotSchema>;
 export type Project = z.infer<typeof projectSchema>;

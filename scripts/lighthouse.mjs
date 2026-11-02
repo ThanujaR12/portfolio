@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 
 const base = process.argv[2] ?? "http://localhost:3001";
-const routes = ["/", "/projects/paletteboard", "/resume"];
+const routes = ["/", "/about", "/work", "/projects/paletteboard", "/resume"];
 const MIN = 90;
 const out = mkdtempSync(path.join(tmpdir(), "lighthouse-"));
 let failed = false;

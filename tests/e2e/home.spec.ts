@@ -2,51 +2,49 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import { content } from "./content";
 
-test.describe("home page (US1)", () => {
-  test("hero shows who, what, and the main actions above the fold", async ({ page }) => {
+test.describe("home page (spec 002)", () => {
+  test("hero shows the statement, actions, Ask AI and the Currently card above the fold", async ({ page, isMobile }) => {
     await page.goto("/");
     const viewport = page.viewportSize()!;
-    for (const locator of [
+    const aboveFold = [
       page.getByRole("heading", { level: 1 }),
-      page.getByRole("link", { name: /explore work/i }),
+      page.getByRole("link", { name: /more about me/i }),
       page.getByRole("textbox", { name: /ask about/i }),
-    ]) {
+      ...(isMobile ? [] : [page.getByRole("complementary", { name: "Currently" })]),
+    ];
+    for (const locator of aboveFold) {
       await expect(locator).toBeVisible();
       const box = (await locator.boundingBox())!;
       expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
     }
-    await expect(page.getByText("Thanuja Rameshbaabu").first()).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("AI-powered products");
+    await expect(page.getByText(/Thanuja Rameshbaabu · Vanderbilt/)).toBeVisible();
   });
 
-  test("featured projects link to their case studies", async ({ page }) => {
+  test("Currently card shows what Thanuja is open to and a live local time", async ({ page }) => {
     await page.goto("/");
-    const featured = page.locator("#featured");
-    await expect(featured.getByRole("article")).toHaveCount(content.featured);
-    await featured.getByRole("link", { name: "PaletteBoard" }).click();
+    const card = page.getByRole("complementary", { name: "Currently" });
+    await expect(card).toContainText(content.openTo);
+    await expect(card.locator("time")).toHaveText(/\d{1,2}:\d{2}\s?(AM|PM)/);
+    await card.getByRole("link", { name: "Contact" }).click();
+    await expect(page).toHaveURL(/#contact$/);
+  });
+
+  test("journey, selected work, skills and Let's build follow the hero", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Where I've been building" })).toBeAttached();
+    await expect(page.locator("#work").getByRole("article")).toHaveCount(content.selected);
+    await expect(page.getByRole("heading", { name: "Tools I build with" })).toBeAttached();
+    await expect(page.getByRole("heading", { name: /Let.s build/ })).toBeAttached();
+    await page.locator("#work").getByRole("link", { name: "PaletteBoard", exact: true }).click();
     await expect(page).toHaveURL(/\/projects\/paletteboard$/);
   });
 
-  test("technology filter narrows the grid and is reflected in the URL", async ({ page }) => {
-    await page.goto("/");
-    const grid = page.locator("#projects");
-    await expect(grid.getByRole("article")).toHaveCount(content.published);
-    await grid.getByRole("button", { name: "Python", exact: true }).click();
-    await expect(page).toHaveURL(/tech=Python/);
-    await expect(grid.getByRole("article")).toHaveCount(content.usingTech("Python"));
-    await grid.getByRole("button", { name: "All", exact: true }).click();
-    await expect(grid.getByRole("article")).toHaveCount(content.published);
-  });
-
-  test("selecting a skill filters the project grid", async ({ page }) => {
+  test("selecting a skill opens the work grid filtered to it", async ({ page }) => {
     await page.goto("/");
     await page.locator("#skills").getByRole("link", { name: /^Expo/ }).click();
-    await expect(page).toHaveURL(/tech=Expo/);
+    await expect(page).toHaveURL(/\/work\?tech=Expo/);
     await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.usingTech("Expo"));
-  });
-
-  test("a filtered URL can be shared", async ({ page }) => {
-    await page.goto("/?tech=React#projects");
-    await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.usingTech("React"));
   });
 
   test("has no detectable accessibility violations", async ({ page }) => {
@@ -62,11 +60,48 @@ test.describe("home page (US1)", () => {
   });
 });
 
-test("reduced motion stops the hero grid animation", async ({ browser }) => {
+test.describe("work page", () => {
+  test("technology filter narrows the grid and is reflected in the URL", async ({ page }) => {
+    await page.goto("/work");
+    const grid = page.locator("#projects");
+    await expect(grid.getByRole("article")).toHaveCount(content.published);
+    await grid.getByRole("button", { name: "Python", exact: true }).click();
+    await expect(page).toHaveURL(/tech=Python/);
+    await expect(grid.getByRole("article")).toHaveCount(content.usingTech("Python"));
+    await grid.getByRole("button", { name: "All", exact: true }).click();
+    await expect(grid.getByRole("article")).toHaveCount(content.published);
+  });
+
+  test("a filtered URL can be shared", async ({ page }) => {
+    await page.goto("/work?tech=React");
+    await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.usingTech("React"));
+  });
+});
+
+test("about page shows the bio, background and open-to", async ({ page }) => {
+  await page.goto("/about");
+  await expect(page.getByRole("heading", { level: 1, name: "Thanuja Rameshbaabu" })).toBeVisible();
+  await expect(page.getByText("Vanderbilt University").first()).toBeVisible();
+  await expect(page.getByText(content.openTo).first()).toBeVisible();
+  const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
+});
+
+test("icon navigation has accessible names and marks the current page", async ({ page, isMobile }) => {
+  test.skip(isMobile, "phones use the text menu");
+  await page.goto("/about");
+  const nav = page.getByRole("navigation", { name: "Main" });
+  for (const name of ["Home", "About", "Work", "Resume", "Contact"]) {
+    await expect(nav.getByRole("link", { name })).toBeVisible();
+  }
+  await expect(nav.getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "page");
+});
+
+test("reduced motion stops the aurora", async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: "reduce", baseURL: "http://localhost:3000" });
   const page = await context.newPage();
   await page.goto("/");
-  const animation = await page.locator(".hero-grid").evaluate((el) => getComputedStyle(el).animationName);
+  const animation = await page.locator(".aurora span").first().evaluate((el) => getComputedStyle(el).animationName);
   expect(animation).toBe("none");
   await context.close();
 });

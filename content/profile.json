@@ -31,5 +31,18 @@
     "Has Thanuja worked with AI or LLMs?",
     "Which front-end frameworks has Thanuja used?",
     "What are Thanuja's career goals?"
-  ]
+  ],
+  "statement": "I design and build **AI-powered products** and aim to lead the teams that ship them.",
+  "openTo": {
+    "term": "Summer 2027 internships",
+    "roles": [
+      "Software Engineering",
+      "AI",
+      "Product"
+    ]
+  },
+  "location": {
+    "city": "Nashville",
+    "timeZone": "America/Chicago"
+  }
 }
