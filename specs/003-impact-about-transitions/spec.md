@@ -20,7 +20,9 @@ sliding through."
   section tracker.
 - Transitions (owner asked for "very futuristic"): route changes close two frosted aurora panels onto
   a glowing AI-gradient beam that shows the destination, then split open while the new page focuses in;
-  in-page section links sweep the beam with the section name. All motion off under reduced motion.
+  in-page section links (and links to a section on another page) run the same full close → jump
+  instantly behind the panels → open sequence, so the visitor never watches the page scroll (owner
+  feedback: "it just scrolls down when I press contact"). All motion off under reduced motion.
 
 ## Requirements
 

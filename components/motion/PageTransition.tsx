@@ -7,12 +7,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 // beam (with the destination name resolving on it), the route changes behind them, then the
 // panels split open from the seam. Internal links only; skipped under reduced motion.
 
-type Phase = "idle" | "closing" | "closed" | "opening" | "jump";
+type Phase = "idle" | "closing" | "closed" | "opening";
 
 const CLOSE_MS = 480;
 const OPEN_MS = 720;
 const FAILSAFE_MS = 4000;
-const JUMP_MS = 900;
 
 const LABELS: Record<string, string> = { "/": "Home", "/about": "About", "/work": "Work", "/resume": "Resume" };
 
@@ -36,7 +35,18 @@ function internalTarget(event: MouseEvent): URL | null {
   return url;
 }
 
-/** "#contact" → "Contact" for the in-page jump label. */
+/** Scrolls instantly (overriding smooth scrolling) so the section is in place before reveal. */
+function jumpTo(hash: string) {
+  const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+  if (!el) return;
+  const root = document.documentElement;
+  const previous = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  el.scrollIntoView({ block: "start" });
+  root.style.scrollBehavior = previous;
+}
+
+/** "#contact" → "Contact" for the transition label. */
 const sectionLabel = (hash: string) => hash.replace(/^#/, "").replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
@@ -67,21 +77,28 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     const onClick = (event: MouseEvent) => {
       const url = internalTarget(event);
       if (!url) return;
-      // Same page with a section hash: let the browser glide there, and sweep the beam across.
+      // Runs in the capture phase, before next/link's own handler would navigate instantly.
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Same page, section link: seal on the beam, jump there behind the panels, then open.
       if (url.pathname === window.location.pathname) {
         if (!url.hash) return;
         setLabel(sectionLabel(url.hash));
         clearTimers();
-        setPhase("jump");
-        later(() => setPhase("idle"), JUMP_MS);
+        setPhase("closing");
+        later(() => {
+          setPhase("closed");
+          history.pushState(null, "", url.hash);
+          jumpTo(url.hash);
+          requestAnimationFrame(() => requestAnimationFrame(open));
+        }, CLOSE_MS);
         return;
       }
-      // Runs in the capture phase, before next/link's own handler would navigate instantly.
-      event.preventDefault();
-      event.stopPropagation();
+
       const destination = url.pathname + url.search + url.hash;
       router.prefetch(destination);
-      setLabel(labelFor(url.pathname));
+      setLabel(url.hash ? sectionLabel(url.hash) : labelFor(url.pathname));
       clearTimers();
       setPhase("closing");
       later(() => {
@@ -100,9 +117,12 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (pathname === lastPath.current) return;
     lastPath.current = pathname;
-    // Clicked links arrive at the top (or their section); back/forward keeps the browser's
-    // restored scroll position.
-    if (fromClick.current && !window.location.hash) window.scrollTo({ top: 0, behavior: "instant" });
+    // Clicked links arrive already at the top or their section (no visible scrolling once the
+    // panels open); back/forward keeps the browser's restored scroll position.
+    if (fromClick.current) {
+      if (window.location.hash) jumpTo(window.location.hash);
+      else window.scrollTo({ top: 0, behavior: "instant" });
+    }
     fromClick.current = false;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const frame = requestAnimationFrame(() => requestAnimationFrame(open));

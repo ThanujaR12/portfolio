@@ -44,6 +44,9 @@ test.describe("contact form (US5)", () => {
 
   test("contact section has no detectable accessibility violations", async ({ page }) => {
     await page.goto("/#contact");
+    // Measure the settled page, not elements mid fade-in.
+    await expect(page.locator("#contact [data-reveal]:not([data-shown])")).toHaveCount(0);
+    await page.waitForTimeout(800);
     const results = await new AxeBuilder({ page }).include("#contact").withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
     expect(results.violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
   });
