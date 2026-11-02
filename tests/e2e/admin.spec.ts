@@ -102,34 +102,34 @@ test("owner hides, republishes and features a project from the board", async ({ 
   await signIn(page, "owner");
   await expect(page.getByRole("heading", { name: "Portfolio control room" })).toBeVisible();
 
-  await boardAction(page, () => tile(page, "Published", "Campus Connect").getByRole("button", { name: "Hide" }).click());
-  await expect(tile(page, "Hidden", "Campus Connect")).toBeVisible();
+  await boardAction(page, () => tile(page, "Published", "CampusConnect.AI").getByRole("button", { name: "Hide" }).click());
+  await expect(tile(page, "Hidden", "CampusConnect.AI")).toBeVisible();
   await page.goto("/work");
   await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.published - 1);
 
   await page.goto("/admin");
-  await boardAction(page, () => tile(page, "Hidden", "Campus Connect").getByRole("button", { name: "Publish" }).click());
-  await expect(tile(page, "Published", "Campus Connect")).toBeVisible();
-  await boardAction(page, () => page.getByRole("button", { name: "Feature Campus Connect" }).click());
-  await expect(page.getByRole("button", { name: "Unfeature Campus Connect" })).toBeVisible();
+  await boardAction(page, () => tile(page, "Hidden", "CampusConnect.AI").getByRole("button", { name: "Publish" }).click());
+  await expect(tile(page, "Published", "CampusConnect.AI")).toBeVisible();
+  await boardAction(page, () => page.getByRole("button", { name: "Feature CampusConnect.AI" }).click());
+  await expect(page.getByRole("button", { name: "Unfeature CampusConnect.AI" })).toBeVisible();
   const list = await (await page.request.get("/api/admin/projects")).json();
   const campus = list.projects.find((p: { slug: string }) => p.slug === "campus-connect");
   expect(campus.featured).toBe(true);
   await page.goto("/");
-  await expect(page.locator("#work").getByRole("link", { name: "Campus Connect", exact: true })).toBeVisible();
+  await expect(page.locator("#work").getByRole("link", { name: "CampusConnect.AI", exact: true })).toBeVisible();
 });
 
 test("owner edits a case study with a screenshot and sees it live", async ({ page }) => {
   await signIn(page, "owner");
-  await tile(page, "Published", "Campus Connect").getByRole("button", { name: "Edit" }).click();
-  const editor = page.getByRole("dialog", { name: /Edit Campus Connect/ });
+  await tile(page, "Published", "CampusConnect.AI").getByRole("button", { name: "Edit" }).click();
+  const editor = page.getByRole("dialog", { name: /Edit CampusConnect.AI/ });
   await editor.getByLabel(/One-line summary/).fill("A campus companion app for students, edited in admin.");
   await editor.getByLabel(/The problem/).fill("Students juggle **too many** campus apps.");
 
   const png = await sharp({ create: { width: 1200, height: 750, channels: 3, background: "#22d3ee" } }).png().toBuffer();
   await editor.locator('input[type="file"]').setInputFiles({ name: "shot.png", mimeType: "image/png", buffer: png });
   await expect(editor.getByLabel("Alt text for screenshot 1")).toBeVisible();
-  await editor.getByLabel("Alt text for screenshot 1").fill("Campus Connect home screen");
+  await editor.getByLabel("Alt text for screenshot 1").fill("CampusConnect.AI home screen");
 
   await expect(editor.getByRole("complementary", { name: "Live preview" })).toContainText("edited in admin");
   await editor.getByRole("button", { name: "Save" }).click();
@@ -142,7 +142,7 @@ test("owner edits a case study with a screenshot and sees it live", async ({ pag
   await expect(page.getByText("A campus companion app for students, edited in admin.")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Why it exists" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "A closer look" })).toBeVisible();
-  await expect(page.getByRole("img", { name: "Campus Connect home screen" }).first()).toBeVisible();
+  await expect(page.getByRole("img", { name: "CampusConnect.AI home screen" }).first()).toBeVisible();
 });
 
 test("published projects can't change their URL; invalid input is rejected", async ({ page }) => {

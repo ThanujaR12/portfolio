@@ -79,6 +79,12 @@ function NavIcon({ item, active }: { item: Item; active: boolean }) {
 export function GlassNav({ name }: { name: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  // Close the phone menu on navigation (link clicks may be handled by the page transition).
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    setOpen(false);
+  }
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);

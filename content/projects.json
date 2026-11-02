@@ -62,16 +62,16 @@
     },
     {
       "slug": "ai-business-assistant",
-      "title": "AI Business Assistant",
-      "summary": "Upload business data and ask questions in plain English. AI analysis, interactive charts and semantic search turn it into insights.",
-      "problem": "Small teams sit on spreadsheets of sales and pricing data but lack an analyst to interpret them. Asking a question of the data usually means writing formulas or code.\n\nThis assistant accepts CSV, Excel or Markdown tables and lets people **ask questions in natural language**, answering with AI-generated analysis and interactive visualisations.",
-      "role": "Full-stack & AI developer",
+      "title": "B.A.A. · AI Business Assistant",
+      "summary": "An AI analytics assistant that improved client response times by 37% and cut manual processing in half.",
+      "problem": "Small businesses sit on sales and pricing data but rarely have an analyst to interpret it, so decisions wait on spreadsheets.\n\nAs an **ISM Research Scholar** mentored by the **Head AI Engineer at PGA of America**, I built B.A.A. (Business Analysis Assistant), inspired by IBM's Project Ripasso. It lets people upload CSV, Excel or Markdown data and **ask questions in plain English**, then answers with forecasts, recommendations and interactive charts.",
+      "role": "Full-stack & AI developer · ISM Research Scholar",
       "highlights": [
+        "Improved client response times by 37% and reduced manual processing by 50%",
         "Natural-language questions over uploaded CSV, Excel and Markdown data",
-        "GPT-4 Turbo analysis with LangChain orchestration",
-        "FAISS vector search for context-aware answers",
-        "Interactive Plotly charts in an Angular dashboard plus a React chat UI",
-        "Real-time updates over WebSockets (Flask-SocketIO)"
+        "GPT-powered analysis with LangChain orchestration and FAISS semantic search",
+        "Automated trend detection, forecasting and strategic recommendations",
+        "Interviewed 5+ industry experts; presented to 200+ at the ISM Showcase"
       ],
       "tags": [
         "Python",
@@ -117,13 +117,14 @@
     },
     {
       "slug": "campus-connect",
-      "title": "Campus Connect",
-      "summary": "A cross-platform mobile app for campus life, built with Expo, React Native and TypeScript.",
-      "role": "Mobile developer",
+      "title": "CampusConnect.AI",
+      "summary": "An AI-powered campus app whose recommendation engine lifted student engagement 62% across 200+ students.",
+      "role": "AI Engineering Intern",
       "highlights": [
-        "Runs on iOS and Android from one TypeScript codebase via Expo",
-        "File-based screen navigation and reusable component library",
-        "Zustand stores for app-wide state"
+        "62% engagement lift after launch, across 200+ students",
+        "Recommendation engine with vector embeddings and collaborative filtering",
+        "Hundreds of sign-ups within weeks; professors committed to expanding it",
+        "Cross-platform iOS and Android app from one TypeScript codebase (Expo)"
       ],
       "tags": [
         "TypeScript",
@@ -157,7 +158,8 @@
         "needs-content"
       ],
       "firstSeenAt": "2026-10-30T00:00:00Z",
-      "updatedAt": "2026-10-30T00:00:00Z"
+      "updatedAt": "2026-10-30T00:00:00Z",
+      "problem": "Students miss the clubs and events that would matter to them because campus information is scattered.\n\nAs an **AI engineering intern**, I engineered a recommendation engine that **personalizes event and club discovery** from student profiles and event metadata, combining **vector embeddings** with **collaborative filtering**. After launch, engagement rose **62%**, connecting **200+ students** and earning hundreds of sign-ups within weeks."
     },
     {
       "slug": "portfolio",

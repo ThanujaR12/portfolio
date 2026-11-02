@@ -14,7 +14,7 @@ test.describe("Ask AI (US3)", () => {
     const panel = page.getByRole("dialog", { name: "Ask AI" });
     await expect(panel).toBeVisible();
     await expect(panel.getByText("An AI guide")).toBeVisible();
-    await expect(panel.getByText(/used in PaletteBoard, AI Business Assistant/)).toBeVisible();
+    await expect(panel.getByText(/used in PaletteBoard, B.A.A./)).toBeVisible();
     await panel.getByRole("link", { name: /PaletteBoard/ }).click();
     await expect(page).toHaveURL(/\/projects\/paletteboard$/);
   });
@@ -85,6 +85,6 @@ test("API rejects invalid input and never cites unknown projects", async ({ requ
   expect(res.headers()["content-type"]).toContain("text/event-stream");
   const body = await res.text();
   const citations = JSON.parse(body.match(/event: citations\ndata: (.*)/)![1]);
-  expect(citations.projects).toEqual([{ slug: "campus-connect", title: "Campus Connect" }]);
+  expect(citations.projects.map((p: { slug: string }) => p.slug)).toEqual(["campus-connect"]);
   expect(body).not.toContain("CITATIONS:");
 });

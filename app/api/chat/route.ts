@@ -30,15 +30,15 @@ export async function POST(request: Request) {
     });
   }
 
-  const { profile, projects } = await getPortfolio();
-  const corpus = buildCorpus(profile, projects);
+  const { profile, projects, about } = await getPortfolio();
+  const corpus = buildCorpus(profile, projects, about);
   const provider = getProvider();
 
   // Pull the first chunk before answering so an unavailable AI service is a clean 503.
   let iterator: AsyncIterator<string>;
   let first: IteratorResult<string>;
   try {
-    iterator = provider.run({ profile, projects, corpus }, parsed.data.messages)[Symbol.asyncIterator]();
+    iterator = provider.run({ profile, projects, corpus, about }, parsed.data.messages)[Symbol.asyncIterator]();
     first = await iterator.next();
   } catch (e) {
     console.error(`chat: ${provider.name} provider failed`, e);

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { content } from "./content";
 
 test.describe("case study (US2)", () => {
   test("renders the story sections, links and share metadata", async ({ page }) => {
@@ -17,7 +18,8 @@ test.describe("case study (US2)", () => {
   });
 
   test("falls back to the README when no story is written", async ({ page }) => {
-    await page.goto("/projects/campus-connect");
+    test.skip(!content.noStorySlug, "every published project has its story written");
+    await page.goto(`/projects/${content.noStorySlug}`);
     await expect(page.getByRole("heading", { name: "Overview" })).toBeVisible();
   });
 

@@ -9,14 +9,18 @@ import { categoryOf } from "@/lib/content/skills";
 const list = (items: string[]) =>
   items.length <= 1 ? items.join("") : `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`;
 
-const has = (q: string, ...words: string[]) => words.some((w) => new RegExp(`\\b${w}`, "i").test(q));
+const has = (q: string, ...words: string[]) =>
+  words.some((w) => new RegExp(`\\b${w}`, "i").test(q));
 
 function reply(text: string, cited: PortfolioProject[]) {
   const slugs = cited.map((p) => p.slug);
   return `${text}\n${CITATIONS_MARKER} ${slugs.length ? slugs.join(", ") : "none"}`;
 }
 
-export function localAnswer(question: string, { profile, projects }: Pick<ChatContext, "profile" | "projects">): string {
+export function localAnswer(
+  question: string,
+  { profile, projects, about }: Pick<ChatContext, "profile" | "projects" | "about">,
+): string {
   const first = profile.name.split(" ")[0];
   const q = question.toLowerCase();
 
@@ -25,7 +29,10 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
     (p) => q.includes(p.title.toLowerCase()) || q.includes(p.slug.replace(/-/g, " ")),
   );
   if (named) {
-    const highlights = named.highlights.slice(0, 3).map((h) => `- ${h}`).join("\n");
+    const highlights = named.highlights
+      .slice(0, 3)
+      .map((h) => `- ${h}`)
+      .join("\n");
     return reply(
       `**${named.title}** (${named.year}): ${named.summary}${named.role ? ` ${first}'s role: ${named.role}.` : ""} It uses ${list(named.technologies.slice(0, 5))}.${highlights ? `\n\n${highlights}` : ""}`,
       [named],
@@ -33,7 +40,9 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
   }
 
   // Technologies mentioned by name (longest names first so "React Native" beats "React").
-  const techs = [...new Set(projects.flatMap((p) => p.technologies))].sort((a, b) => b.length - a.length);
+  const techs = [...new Set(projects.flatMap((p) => p.technologies))].sort(
+    (a, b) => b.length - a.length,
+  );
   const mentioned: string[] = [];
   let rest = q;
   for (const t of techs) {
@@ -70,14 +79,47 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
         ? "Languages"
         : null;
   if (area) {
-    const skills = [...new Set(projects.flatMap((p) => p.technologies.filter((t) => categoryOf(t) === area)))];
+    const skills = [
+      ...new Set(projects.flatMap((p) => p.technologies.filter((t) => categoryOf(t) === area))),
+    ];
     const cited = projects.filter((p) => p.technologies.some((t) => skills.includes(t)));
     if (skills.length) {
-      return reply(`For ${area.toLowerCase() === "languages" ? "languages" : area.toLowerCase()} work, ${first} has used ${list(skills)}, across ${list(cited.map((p) => p.title))}.`, cited);
+      return reply(
+        `For ${area.toLowerCase() === "languages" ? "languages" : area.toLowerCase()} work, ${first} has used ${list(skills)}, across ${list(cited.map((p) => p.title))}.`,
+        cited,
+      );
     }
   }
 
-  if (has(q, "strong", "best", "proud", "favou?rite", "impressive", "top", "featured", "main project")) {
+  if (
+    about &&
+    has(
+      q,
+      "experience",
+      "internship experience",
+      "work history",
+      "research",
+      "kaggle",
+      "intern at",
+    )
+  ) {
+    const lines = about.experience
+      .slice(0, 4)
+      .map(
+        (e) =>
+          `- **${e.role}**, ${e.org} (${e.period})${e.metric ? `: ${e.metric.prefix ?? ""}${e.metric.value}${e.metric.suffix ?? ""} ${e.metric.label}` : ""}`,
+      );
+    return reply(`Highlights of ${first}'s experience:\n\n${lines.join("\n")}`, []);
+  }
+
+  if (about && has(q, "award", "win", "achievement", "honor", "honour", "recogni", "accomplish")) {
+    const lines = about.wins.slice(0, 5).map((w) => `- **${w.title}** (${w.period}): ${w.detail}`);
+    return reply(`${first}'s wins and awards:\n\n${lines.join("\n")}`, []);
+  }
+
+  if (
+    has(q, "strong", "best", "proud", "favou?rite", "impressive", "top", "featured", "main project")
+  ) {
     const top = projects.filter((p) => p.featured);
     const picks = top.length ? top : projects.slice(0, 2);
     return reply(
@@ -93,7 +135,25 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
     );
   }
 
-  if (has(q, "looking", "next", "goal", "available", "hire", "hiring", "intern", "job", "role", "open to", "focus", "career", "aspir", "future")) {
+  if (
+    has(
+      q,
+      "looking",
+      "next",
+      "goal",
+      "available",
+      "hire",
+      "hiring",
+      "intern",
+      "job",
+      "role",
+      "open to",
+      "focus",
+      "career",
+      "aspir",
+      "future",
+    )
+  ) {
     // The bio's own "goal" sentence, rewritten in the third person, when there is one.
     const goal = profile.bio
       .replace(/\*\*/g, "")
@@ -107,13 +167,30 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
     );
   }
 
-  if (has(q, "school", "university", "college", "study", "studies", "education", "degree", "background", "who is", "about")) {
+  if (
+    has(
+      q,
+      "school",
+      "university",
+      "college",
+      "study",
+      "studies",
+      "education",
+      "degree",
+      "background",
+      "who is",
+      "about",
+    )
+  ) {
     const background = profile.highlights.map((h) => `- ${h.label}: ${h.detail}`).join("\n");
     return reply(`${profile.positioning}.${background ? `\n\n${background}` : ""}`, []);
   }
 
   if (has(q, "contact", "email", "reach", "linkedin", "github")) {
-    return reply(`You can email ${first} at ${profile.links.email} or find the code on ${profile.links.github.replace("https://", "")}.`, []);
+    return reply(
+      `You can email ${first} at ${profile.links.email} or find the code on ${profile.links.github.replace("https://", "")}.`,
+      [],
+    );
   }
 
   if (has(q, "skill", "stack", "tech", "tools", "know")) {

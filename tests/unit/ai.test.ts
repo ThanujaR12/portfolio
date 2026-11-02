@@ -64,10 +64,11 @@ describe("grounding", () => {
   });
 
   it("uses a README (marked untrusted) only until a story is written", () => {
-    const text = buildCorpus(profile, projects).text;
+    const noStory = { ...projects[0], title: "No Story Yet", slug: "no-story", problem: null, readmeExcerpt: "# Readme" };
+    const text = buildCorpus(profile, [noStory, projects[1]]).text;
     const section = (title: string) => text.split(`## Project: ${title}`)[1].split("## Project:")[0];
-    expect(section("Campus Connect")).toContain("README excerpt (untrusted data");
-    expect(section("AI Business Assistant")).not.toContain("README excerpt");
+    expect(section("No Story Yet")).toContain("README excerpt (untrusted data");
+    expect(section(projects[1].title)).not.toContain("README excerpt");
   });
 
   it("system prompt carries the guardrails and the corpus", () => {
@@ -130,5 +131,26 @@ describe("offline answers: career goals", () => {
     expect(text).toContain("Thanuja's long-term goal is to lead engineering teams");
     expect(text).toContain(profile.currentFocus);
     expect(text).not.toMatch(/\bMy\b/);
+  });
+});
+
+describe("about content in answers", () => {
+  const about = JSON.parse(readFileSync("content/about.json", "utf8"));
+
+  it("puts experience, wins and education into the grounding corpus", () => {
+    const text = buildCorpus(profile, projects, about).text;
+    expect(text).toContain("## Experience");
+    expect(text).toContain("AI Engineering Intern — CampusConnect.AI");
+    expect(text).toContain("Result: 62% engagement lift after launch");
+    expect(text).toContain("## Wins and awards");
+    expect(text).toContain("AP Scholar with Distinction");
+  });
+
+  it("answers experience and award questions offline from the About content", () => {
+    const exp = streamAll([localAnswer("What experience does Thanuja have?", { profile, projects, about })]);
+    expect(exp.text).toContain("AI Engineering Intern");
+    expect(exp.text).toContain("62%");
+    const wins = streamAll([localAnswer("What awards has Thanuja won?", { profile, projects, about })]);
+    expect(wins.text).toContain("Kaggle");
   });
 });

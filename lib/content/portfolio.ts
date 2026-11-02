@@ -9,9 +9,10 @@ export type GitHubStats = { repoCount: number; topLanguages: string[]; lastPushA
 
 /** Everything the public pages need, loaded once per request. */
 export const getPortfolio = cache(async () => {
-  const [{ projects: all }, rawProfile] = await Promise.all([
+  const [{ projects: all }, rawProfile, about] = await Promise.all([
     readContent("projects"),
     readContent("profile"),
+    readContent("about"),
   ]);
   // Uploaded files resolve to the content repo in GitHub mode (live before the next deploy).
   const withUrl = <T extends { src: string }>(s: T): T => ({ ...s, src: assetUrl(s.src) });
@@ -42,6 +43,7 @@ export const getPortfolio = cache(async () => {
   const skills = buildSkills(projects);
   return {
     profile,
+    about,
     projects,
     featured,
     // Home "Selected work": featured first, topped up to three with the next published ones.

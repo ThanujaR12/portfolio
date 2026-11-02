@@ -47,3 +47,10 @@ describe("profile updates", () => {
     expect(profileSchema.safeParse({ ...p, location: { city: "X", timeZone: "Mars/Olympus" } }).success).toBe(false);
   });
 });
+
+describe("about content", () => {
+  it("matches its schema", async () => {
+    const { aboutFileSchema } = await import("@/lib/schemas");
+    expect(() => aboutFileSchema.parse(read("about.json"))).not.toThrow();
+  });
+});

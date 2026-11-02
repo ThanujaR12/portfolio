@@ -2,13 +2,33 @@
   "version": 1,
   "name": "Thanuja Rameshbaabu",
   "positioning": "Computer Science & Applied Mathematics student building full-stack and AI products",
-  "bio": "I'm a student at **Vanderbilt University** majoring in **Computer Science and Applied Mathematics**, with a minor in **Engineering Management**.\n\nI build full-stack web applications, from React and TypeScript front ends to Node.js and Python back ends, with a focus on practical applications of AI. I work spec-first: I define what a feature must do and why before writing code, which keeps projects focused, testable and easy to extend.\n\nMy long-term goal is to lead engineering teams that build reliable, well-designed products. Studying engineering management alongside computer science and mathematics prepares me to pair strong technical skills with sound planning and collaboration.",
-  "photo": null,
+  "bio": "I'm a student at **Vanderbilt University** majoring in **Computer Science and Applied Mathematics**, with a minor in **Engineering Management**.\n\nI build AI systems that turn messy data into decisions. As an ISM Research Scholar mentored by the Head AI Engineer at PGA of America, I built B.A.A., a business-analytics assistant that improved client response times by 37% and cut manual processing in half. As an AI engineering intern at CampusConnect.AI, I engineered a recommendation engine that lifted engagement 62% across 200+ students. My Kaggle models rank in the top 15% of 10,000+ competitors, and through Thanuja.AI I have taught 1,000+ people to use AI.\n\nMy long-term goal is to lead engineering teams that build reliable, well-designed products. Studying engineering management alongside computer science and mathematics prepares me to pair strong technical skills with sound planning and collaboration.",
+  "photo": "/uploads/thanuja-portrait.webp",
   "currentFocus": "Building AI-assisted web apps and looking for software engineering internships.",
   "highlights": [
     {
       "label": "Vanderbilt University",
       "detail": "Computer Science and Applied Mathematics, minor in Engineering Management"
+    },
+    {
+      "label": "ISM Research Scholar",
+      "detail": "Top 50 of 530; mentored by the Head AI Engineer at PGA of America",
+      "period": "2024"
+    },
+    {
+      "label": "Founded Thanuja.AI",
+      "detail": "AI education brand that has reached 1,000+ learners",
+      "period": "2024"
+    },
+    {
+      "label": "Kaggle · Top 15%",
+      "detail": "Among 10,000+ competitors in global AI competitions",
+      "period": "2024"
+    },
+    {
+      "label": "IBM AI Engineering Certificate",
+      "detail": "140+ hours of machine learning and neural networks",
+      "period": "2025"
     },
     {
       "label": "Change++ Fall 2026 Coding Challenge",
@@ -19,7 +39,7 @@
   "links": {
     "email": "thanuja.rameshbaabu@vanderbilt.edu",
     "github": "https://github.com/ThanujaR12",
-    "linkedin": null
+    "linkedin": "https://www.linkedin.com/in/thanujarameshbaabu"
   },
   "resume": {
     "path": "/resume.pdf",

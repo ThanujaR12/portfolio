@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { ChatLauncher } from "@/components/chat/ChatLauncher";
+import { PageTransition } from "@/components/motion/PageTransition";
 import { GlassNav } from "@/components/site/GlassNav";
 import { RevealObserver } from "@/components/site/Reveal";
 import { Footer } from "@/components/site/Footer";
@@ -49,7 +50,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to content
         </a>
         <GlassNav name={profile.name} />
-        <main id="main">{children}</main>
+        <main id="main">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer profile={profile} />
         <ChatLauncher name={profile.name} suggestions={profile.suggestedQuestions} />
         <RevealObserver />

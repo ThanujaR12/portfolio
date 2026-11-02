@@ -4,10 +4,10 @@ import type { Corpus } from "@/lib/ai/corpus";
 import { localAnswer } from "@/lib/ai/local";
 import { systemPrompt } from "@/lib/ai/prompt";
 import type { PortfolioProject } from "@/lib/content/merge";
-import type { Profile } from "@/lib/schemas";
+import type { About, Profile } from "@/lib/schemas";
 
 export type ChatMessage = { role: "user" | "assistant"; content: string };
-export type ChatContext = { profile: Profile; projects: PortfolioProject[]; corpus: Corpus };
+export type ChatContext = { profile: Profile; projects: PortfolioProject[]; corpus: Corpus; about?: About };
 export type Provider = (ctx: ChatContext, messages: ChatMessage[]) => AsyncIterable<string>;
 
 const gemini: Provider = async function* (ctx, messages) {

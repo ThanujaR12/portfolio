@@ -17,5 +17,7 @@ export const content = {
   selected: Math.min(3, projects.length),
   openTo: profile.openTo.term,
   roles: profile.openTo.roles.join(" · "),
+  /** A published project still showing its GitHub README instead of a written story. */
+  noStorySlug: projects.find((p) => !p.problem && p.readmeExcerpt)?.slug,
   usingTech: (tech: string) => projects.filter((p) => p.technologies.includes(tech)).length,
 };

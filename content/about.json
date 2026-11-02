@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "headline": ["Building", "AI that", "helps."],
+  "intro": "I'm Thanuja, a **Computer Science & Applied Mathematics** student at **Vanderbilt University** with a minor in **Engineering Management**. I build AI systems that turn messy data into decisions: a business-analytics assistant that cut manual processing in half, a recommendation engine that lifted campus engagement **62%**, and Kaggle models ranked in the **top 15% of 10,000+** competitors. Along the way, I've taught **1,000+** people to use AI through Thanuja.AI.",
+  "stats": [
+    { "value": 1000, "suffix": "+", "label": "Learners reached with Thanuja.AI" },
+    { "value": 62, "suffix": "%", "label": "Engagement lift · CampusConnect.AI" },
+    { "value": 15, "prefix": "Top ", "suffix": "%", "label": "Kaggle · of 10,000+ competitors" },
+    { "value": 140, "suffix": "+", "label": "Hours · IBM AI Engineering" }
+  ],
+  "principles": [
+    {
+      "word": "Research",
+      "text": "Start from evidence. I published a study on convolutional neural networks and interviewed 5+ industry experts before writing a line of B.A.A."
+    },
+    {
+      "word": "Build",
+      "text": "Ship end-to-end systems that move real numbers: 37% faster client responses and 50% less manual work with B.A.A., and a 62% engagement lift with CampusConnect.AI."
+    },
+    {
+      "word": "Share",
+      "text": "Make AI accessible. 1,000+ learners through Thanuja.AI, 30+ peers mentored across schools, and 20+ coding workshops led."
+    }
+  ],
+  "experience": [
+    {
+      "role": "AI Engineering Intern",
+      "org": "CampusConnect.AI",
+      "period": "2024 – 2026",
+      "metric": { "value": 62, "suffix": "%", "label": "engagement lift after launch" },
+      "points": [
+        "Engineered an AI recommendation engine that personalizes event and club discovery from student profiles and event metadata.",
+        "Combined vector embeddings with collaborative filtering to improve the relevance and speed of suggestions.",
+        "Connected 200+ students and earned hundreds of sign-ups within weeks; presented to professors and secured commitments to expand."
+      ]
+    },
+    {
+      "role": "ISM Research Scholar · Builder of B.A.A.",
+      "org": "Independent Study & Mentorship × PGA of America mentor",
+      "period": "2024 – 2025",
+      "metric": { "value": 37, "suffix": "%", "label": "faster client response times" },
+      "points": [
+        "Selected as one of 50 scholars from a class of 530; mentored by the Head AI Engineer at PGA of America.",
+        "Built B.A.A. (Business Analysis Assistant), a full-stack AI analytics platform with FastAPI, OpenAI GPT models and a React dashboard that automates trend detection, forecasting and recommendations.",
+        "Reduced manual processing by 50%; interviewed 5+ industry experts and presented to 200+ professionals and students at the ISM Showcase."
+      ]
+    },
+    {
+      "role": "Founder & Creator",
+      "org": "Thanuja.AI",
+      "period": "2024 – Present",
+      "metric": { "value": 1000, "suffix": "+", "label": "learners reached" },
+      "points": [
+        "Founded an AI education brand across YouTube, Substack and Instagram with weekly content on AI tools and strategy.",
+        "Built content pipelines for LLM applications and embedded analytics to measure engagement."
+      ]
+    },
+    {
+      "role": "Kaggle Competitor",
+      "org": "Global AI & data-science competitions",
+      "period": "2024 – 2026",
+      "metric": { "value": 15, "prefix": "Top ", "suffix": "%", "label": "of 10,000+ competitors" },
+      "points": [
+        "Trained XGBoost and CatBoost ensembles to forecast poverty and education outcomes across 15,000 data points, helping identify regions most in need of support.",
+        "Built Pandas and scikit-learn pipelines for public-health classification on imbalanced data; competed for cash prizes."
+      ]
+    },
+    {
+      "role": "Independent Researcher · Neural Networks",
+      "org": "Published on Medium",
+      "period": "2024 – 2026",
+      "metric": { "value": 500, "suffix": "+", "label": "readers" },
+      "points": [
+        "Published a study on CNNs covering backpropagation, overfitting, dropout and activation-function tuning."
+      ]
+    },
+    {
+      "role": "Lead Programmer",
+      "org": "Coyotronics Robotics",
+      "period": "2023 – 2026",
+      "metric": { "value": 5, "suffix": "+", "label": "autonomous routines" },
+      "points": [
+        "Programmed autonomous routines with sensor fusion and PID control in an 8-member team that advanced to State in a top-5% league."
+      ]
+    },
+    {
+      "role": "Team Officer",
+      "org": "Heritage Computer Science Club",
+      "period": "2023 – 2026",
+      "metric": { "value": 20, "suffix": "+", "label": "workshops led" },
+      "points": [
+        "Led coding workshops and UIL contest prep; represented the school in 5+ algorithm competitions alongside 30+ students."
+      ]
+    }
+  ],
+  "wins": [
+    { "title": "Top 15% · Kaggle Global AI Competitions", "detail": "Among 10,000+ competitors worldwide, in public health and poverty forecasting.", "period": "2024 – 2026" },
+    { "title": "AP Scholar with Distinction", "detail": "College Board national recognition.", "period": "2025" },
+    { "title": "ISM Research Scholar", "detail": "Selected for advanced mentorship and research: top 50 of a 530-student class.", "period": "2024" },
+    { "title": "Robotics State Qualifier", "detail": "Coyotronics advanced to State in a top-5% league.", "period": "2025" },
+    { "title": "DECA Regional Finalist", "detail": "Presented AI-driven marketing and media analytics for strategic insights.", "period": "2025" },
+    { "title": "UIL State Solo & Ensemble Medalist", "detail": "Superior ratings four consecutive years; clarinet section leader.", "period": "2022 – 2026" }
+  ],
+  "education": [
+    {
+      "school": "Vanderbilt University",
+      "detail": "Computer Science & Applied Mathematics · minor in Engineering Management",
+      "period": "2026 – Present",
+      "points": []
+    },
+    {
+      "school": "IBM AI Engineering Professional Certificate",
+      "detail": "140+ hours · machine learning, neural networks and model deployment",
+      "period": "2025",
+      "points": ["Python, TensorFlow and PyTorch; completed a capstone project and contributed code via GitHub."]
+    },
+    {
+      "school": "Heritage High School",
+      "detail": "Top 10% · rank 52 of 530 · AP Scholar with Distinction",
+      "period": "2022 – 2026",
+      "points": [
+        "AP Calculus BC, Statistics, Computer Science A, Physics 1 & 2.",
+        "College credit through a Texas Tech University summer program."
+      ]
+    }
+  ],
+  "toolkit": [
+    { "group": "Languages", "items": ["Python", "TypeScript", "JavaScript", "Java", "HTML & CSS"] },
+    { "group": "AI & data", "items": ["PyTorch", "TensorFlow", "scikit-learn", "Pandas", "XGBoost", "CatBoost", "OpenAI API", "LangChain", "FAISS", "Vector embeddings"] },
+    { "group": "Product & web", "items": ["React", "Next.js", "FastAPI", "Flask", "Node.js", "Express", "MongoDB", "React Native"] },
+    { "group": "Ways of working", "items": ["Spec-driven development", "Git & GitHub", "Kaggle", "Claude Code"] }
+  ]
+}

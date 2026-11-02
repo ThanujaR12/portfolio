@@ -90,13 +90,30 @@ test.describe("work page", () => {
   });
 });
 
-test("about page shows the bio, background and open-to", async ({ page }) => {
+test("about page tells the impact story with numbers, sections and a tracker", async ({ page, isMobile }) => {
   await page.goto("/about");
-  await expect(page.getByRole("heading", { level: 1, name: "Thanuja Rameshbaabu" })).toBeVisible();
-  await expect(page.getByText("Vanderbilt University").first()).toBeVisible();
-  await expect(page.getByText(content.openTo).first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Thanuja Rameshbaabu/ })).toBeVisible();
+  await expect(page.getByRole("img", { name: /Portrait of Thanuja Rameshbaabu/ })).toBeVisible();
+  for (const name of ["Approach", "Experience", "Wins", "Education", "Toolkit"]) {
+    await expect(page.getByRole("heading", { level: 2, name })).toBeAttached();
+  }
+  await expect(page.getByRole("heading", { level: 3, name: "AI Engineering Intern" })).toBeAttached();
+  // Screen readers get the final number even while it counts up.
+  await expect(page.locator("#intro .sr-only", { hasText: "62%" }).first()).toBeAttached();
+  if (!isMobile) {
+    const tracker = page.getByRole("navigation", { name: "On this page" });
+    await expect(tracker.getByRole("link")).toHaveCount(7);
+  }
+  await expect(page.getByRole("link", { name: /LinkedIn/ })).toHaveAttribute("href", /linkedin\.com\/in\/thanujarameshbaabu/);
   const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag22aa"]).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([]);
+});
+
+test("counted-up numbers settle on their real values", async ({ page }) => {
+  await page.goto("/about");
+  const stat = page.locator("#experience").getByText("62%").first();
+  await stat.scrollIntoViewIfNeeded();
+  await expect(page.locator("#experience [aria-hidden=true]", { hasText: /^62%$/ }).first()).toBeVisible({ timeout: 5000 });
 });
 
 test("icon navigation has accessible names and marks the current page", async ({ page, isMobile }) => {

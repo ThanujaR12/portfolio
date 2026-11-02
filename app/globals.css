@@ -234,3 +234,207 @@
     animation: none;
   }
 }
+
+/* Fill words (spec 003): giant type that starts soft grey and fills with the AI gradient,
+   left to right, as --p goes 0 → 1 on scroll. Two background layers clipped to the text
+   (gradient over a faint ink tint) avoid outline artifacts on overlapping glyph contours. */
+.fill-word {
+  --p: 0;
+  color: transparent;
+  background-image:
+    linear-gradient(90deg, var(--color-accent), var(--color-ai) 55%, var(--color-rose)),
+    linear-gradient(rgb(29 29 31 / 0.1), rgb(29 29 31 / 0.1));
+  background-repeat: no-repeat;
+  background-size:
+    calc(var(--p) * 100%) 100%,
+    100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fill-word {
+    background-size:
+      100% 100%,
+      100% 100%;
+  }
+}
+
+/* Page transition "aperture" (spec 003). Panels meet at a glowing AI-gradient beam, then split
+   open from the seam while the new page focuses in. */
+.page-aperture {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+}
+.page-aperture[data-phase="closing"],
+.page-aperture[data-phase="closed"] {
+  pointer-events: auto;
+  cursor: progress;
+}
+.aperture-panel {
+  position: absolute;
+  inset-inline: 0;
+  height: 50.5%;
+  background:
+    radial-gradient(60% 120% at 50% 100%, rgb(205 178 255 / 0.55), transparent 70%),
+    radial-gradient(50% 100% at 15% 100%, rgb(159 188 255 / 0.5), transparent 70%),
+    rgb(251 251 253 / 0.92);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  transition: transform 480ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+.aperture-top {
+  top: 0;
+  transform: translateY(-101%);
+}
+.aperture-bottom {
+  bottom: 0;
+  transform: translateY(101%);
+  background:
+    radial-gradient(60% 120% at 50% 0%, rgb(255 191 217 / 0.5), transparent 70%),
+    radial-gradient(50% 100% at 85% 0%, rgb(159 188 255 / 0.5), transparent 70%),
+    rgb(251 251 253 / 0.92);
+}
+.page-aperture[data-phase="closing"] .aperture-panel,
+.page-aperture[data-phase="closed"] .aperture-panel {
+  transform: none;
+}
+.page-aperture[data-phase="opening"] .aperture-panel {
+  transition: transform 720ms cubic-bezier(0.76, 0, 0.24, 1) 140ms;
+}
+
+.aperture-beam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.aperture-beam > span {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%) scaleX(0);
+  transition: transform 520ms cubic-bezier(0.2, 0.7, 0.2, 1) 120ms;
+}
+.aperture-core {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-accent) 18%, var(--color-ai) 50%, var(--color-rose) 82%, transparent);
+}
+.aperture-glow {
+  width: 80%;
+  height: 26px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, rgb(43 95 224 / 0.45), rgb(124 77 219 / 0.55), rgb(194 65 127 / 0.45), transparent);
+  filter: blur(12px);
+}
+.aperture-spark {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow:
+    0 0 18px 6px rgb(124 77 219 / 0.6),
+    0 0 60px 20px rgb(43 95 224 / 0.35);
+}
+.page-aperture[data-phase="closing"] .aperture-beam,
+.page-aperture[data-phase="closed"] .aperture-beam,
+.page-aperture[data-phase="opening"] .aperture-beam {
+  opacity: 1;
+}
+.page-aperture[data-phase="closing"] .aperture-beam > span,
+.page-aperture[data-phase="closed"] .aperture-beam > span {
+  transform: translate(-50%, -50%) scaleX(1);
+}
+/* Arrival: the beam flares wide and fades as the panels part. */
+.page-aperture[data-phase="opening"] .aperture-beam > span {
+  transform: translate(-50%, -50%) scaleX(1.15);
+  opacity: 0;
+  transition:
+    transform 500ms ease-out,
+    opacity 500ms ease-out 120ms;
+}
+
+.aperture-label {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 22px);
+  transform: translateX(-50%);
+  color: var(--color-ink);
+  letter-spacing: 0.5em;
+  opacity: 0;
+  transition: opacity 260ms ease 260ms;
+}
+.page-aperture[data-phase="closing"] .aperture-label,
+.page-aperture[data-phase="closed"] .aperture-label {
+  opacity: 1;
+}
+.page-aperture[data-phase="opening"] .aperture-label {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+/* The arriving page focuses in: blur to sharp while drifting up into place. */
+.page-arrive {
+  animation: page-arrive 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes page-arrive {
+  from {
+    opacity: 0.35;
+    transform: translateY(28px) scale(0.985);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-aperture {
+    display: none;
+  }
+  .page-arrive {
+    animation: none;
+  }
+}
+
+/* In-page jump: the beam sweeps across with the section name while the page glides there. */
+.page-aperture[data-phase="jump"] .aperture-beam {
+  opacity: 1;
+}
+.page-aperture[data-phase="jump"] .aperture-beam > span {
+  animation: beam-sweep 900ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.page-aperture[data-phase="jump"] .aperture-label {
+  animation: label-flash 900ms ease both;
+}
+@keyframes beam-sweep {
+  0% {
+    transform: translate(-50%, -50%) scaleX(0);
+    opacity: 1;
+  }
+  55% {
+    transform: translate(-50%, -50%) scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scaleX(1.1);
+    opacity: 0;
+  }
+}
+@keyframes label-flash {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  30%,
+  70% {
+    opacity: 1;
+  }
+}

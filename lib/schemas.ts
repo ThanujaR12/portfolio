@@ -132,6 +132,45 @@ export const syncLogFileSchema = z.object({
   runs: z.array(syncRunSchema).max(30),
 });
 
+// About page (spec 003): impact-led story sourced from the owner's resume and records.
+const statSchema = z.object({
+  value: z.number().nonnegative(),
+  prefix: z.string().max(12).optional(),
+  suffix: z.string().max(6).optional(),
+  label: z.string().max(60),
+});
+
+export const aboutFileSchema = z.object({
+  version: z.literal(1),
+  headline: z.array(z.string().max(16)).min(1).max(3),
+  intro: z.string().max(900),
+  stats: z.array(statSchema).max(4),
+  principles: z.array(z.object({ word: z.string().max(14), text: z.string().max(240) })).max(4),
+  experience: z
+    .array(
+      z.object({
+        role: z.string().max(80),
+        org: z.string().max(80),
+        period: z.string().max(30),
+        metric: statSchema.optional(),
+        points: z.array(z.string().max(220)).max(4),
+      }),
+    )
+    .max(10),
+  wins: z.array(z.object({ title: z.string().max(90), detail: z.string().max(160), period: z.string().max(20) })).max(10),
+  education: z
+    .array(
+      z.object({
+        school: z.string().max(80),
+        detail: z.string().max(120),
+        period: z.string().max(30),
+        points: z.array(z.string().max(160)).max(4),
+      }),
+    )
+    .max(5),
+  toolkit: z.array(z.object({ group: z.string().max(40), items: z.array(z.string().max(30)).max(16) })).max(5),
+});
+
 export const chatRequestSchema = z.object({
   messages: z
     .array(
@@ -187,3 +226,4 @@ export type ProjectsFile = z.infer<typeof projectsFileSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 export type SyncRun = z.infer<typeof syncRunSchema>;
 export type SyncLogFile = z.infer<typeof syncLogFileSchema>;
+export type About = z.infer<typeof aboutFileSchema>;

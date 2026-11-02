@@ -1,5 +1,6 @@
 import { ContactSection } from "@/components/site/ContactSection";
 import { Hero } from "@/components/site/Hero";
+import { ImpactBand } from "@/components/site/ImpactBand";
 import { NameIntro } from "@/components/site/NameIntro";
 import { JourneySection } from "@/components/site/JourneySection";
 import { SelectedWork } from "@/components/site/SelectedWork";
@@ -8,9 +9,9 @@ import { getPortfolio } from "@/lib/content/portfolio";
 
 export const revalidate = 3600;
 
-// Home (spec 002): Name intro → Statement hero → Journey → Selected work → Skills → Let's build.
+// Home (spec 002): Name intro → Statement hero → Impact → Journey → Selected work → Skills → Let's build.
 export default async function HomePage() {
-  const { profile, selected, skills, technologies, journey } = await getPortfolio();
+  const { profile, about, selected, skills, technologies, journey } = await getPortfolio();
 
   // schema.org Person: helps search engines connect the name to these profiles.
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -32,6 +33,7 @@ export default async function HomePage() {
       />
       <NameIntro profile={profile} />
       <Hero profile={profile} />
+      <ImpactBand stats={about.stats} />
       <JourneySection journey={journey} />
       <SelectedWork projects={selected} />
       <SkillsSection skills={skills} />

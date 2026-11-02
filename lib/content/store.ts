@@ -2,7 +2,7 @@ import "server-only";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { z } from "zod";
-import { profileSchema, projectsFileSchema, syncLogFileSchema } from "@/lib/schemas";
+import { aboutFileSchema, profileSchema, projectsFileSchema, syncLogFileSchema } from "@/lib/schemas";
 
 // Curated content (research.md R1). CONTENT_SOURCE=fs reads/writes content/ on disk (dev,
 // tests); "github" reads/writes the live files in the content repo through the Contents API,
@@ -14,6 +14,7 @@ const files = {
   projects: { name: "projects.json", schema: projectsFileSchema },
   profile: { name: "profile.json", schema: profileSchema },
   syncLog: { name: "sync-log.json", schema: syncLogFileSchema },
+  about: { name: "about.json", schema: aboutFileSchema },
 } as const;
 
 type FileKey = keyof typeof files;
