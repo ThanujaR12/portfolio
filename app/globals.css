@@ -403,3 +403,249 @@
     animation: none;
   }
 }
+
+/* Contact channels: giant rows that light up on hover (sweep, gradient fill, cursor spotlight,
+   flowing signal wave, decoding address). */
+.channels {
+  border-top: 1px solid var(--color-line);
+}
+.channel {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  isolation: isolate;
+  border-bottom: 1px solid var(--color-line);
+}
+.channel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgb(124 77 219 / 0.1), rgb(43 95 224 / 0.06) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.channel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-ai) 55%, var(--color-rose));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.channel-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 1.5rem;
+  overflow: hidden;
+  padding: 1.75rem 4.5rem 1.75rem 0;
+  outline-offset: -2px;
+}
+@media (min-width: 768px) {
+  .channel-link {
+    grid-template-columns: 4rem minmax(0, 1fr) auto;
+    column-gap: 2.5rem;
+    padding-block: 2.25rem;
+    padding-right: 5.5rem;
+  }
+}
+/* Light sweep across the row. */
+.channel-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.9) 48%, rgb(159 188 255 / 0.35) 52%, transparent 70%);
+  transform: translateX(-110%);
+}
+.channel-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  color: var(--color-muted);
+  transition: color 300ms ease;
+}
+.channel-word {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 8.5vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: transparent;
+  background-image:
+    linear-gradient(90deg, var(--color-accent), var(--color-ai) 55%, var(--color-rose)),
+    linear-gradient(var(--color-ink), var(--color-ink));
+  background-repeat: no-repeat;
+  background-size:
+    0% 100%,
+    100% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition:
+    background-size 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 650ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    letter-spacing 650ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.channel-wave {
+  display: none;
+  width: 90px;
+  overflow: hidden;
+  color: rgb(29 29 31 / 0.25);
+  transition: color 300ms ease;
+}
+@media (min-width: 640px) {
+  .channel-wave {
+    display: block;
+  }
+}
+.channel-wave svg {
+  display: block;
+  animation: channel-wave 2.4s linear infinite;
+}
+@keyframes channel-wave {
+  to {
+    transform: translateX(-30px);
+  }
+}
+.channel-value {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+  white-space: nowrap;
+  transition: color 300ms ease;
+}
+@media (min-width: 768px) {
+  .channel-value {
+    display: block;
+  }
+}
+.channel-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  transform: translateY(-50%);
+  transition:
+    background 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease,
+    transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.channel-btn svg {
+  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.channel-btn[data-copied] {
+  background: var(--color-ink);
+  color: #fff;
+}
+.channel-toast {
+  position: absolute;
+  right: 4.25rem;
+  top: 50%;
+  translate: 0 -50%;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ai);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+.channel-toast[data-show] {
+  opacity: 1;
+}
+.channel:has(.channel-toast[data-show]) .channel-value {
+  opacity: 0;
+}
+
+@media (hover: hover) {
+  .channel:hover::before,
+  .channel:focus-within::before {
+    opacity: 1;
+  }
+  .channel:hover::after,
+  .channel:focus-within::after {
+    transform: scaleX(1);
+  }
+  .channel:hover .channel-link::before {
+    animation: channel-sweep 900ms cubic-bezier(0.3, 0.7, 0.2, 1);
+  }
+  .channel:hover .channel-index,
+  .channel:focus-within .channel-index {
+    color: var(--color-accent);
+  }
+  .channel:hover .channel-word,
+  .channel:focus-within .channel-word {
+    background-size:
+      100% 100%,
+      100% 100%;
+    transform: translateX(0.75rem);
+    letter-spacing: -0.02em;
+  }
+  .channel:hover .channel-wave,
+  .channel:focus-within .channel-wave {
+    color: var(--color-ai);
+  }
+  .channel:hover .channel-wave svg {
+    animation-duration: 0.7s;
+  }
+  .channel:hover .channel-value,
+  .channel:focus-within .channel-value {
+    color: var(--color-ink);
+  }
+  .channel:hover .channel-btn,
+  .channel:focus-within .channel-btn {
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-ai));
+    color: #fff;
+    box-shadow: 0 14px 34px -12px rgb(124 77 219 / 0.6);
+  }
+  .channel:hover .channel-btn:not(button) svg {
+    transform: rotate(45deg);
+  }
+  .channel-btn:hover {
+    transform: translateY(-50%) scale(1.08);
+  }
+}
+@keyframes channel-sweep {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(110%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .channel-wave svg,
+  .channel:hover .channel-link::before {
+    animation: none;
+  }
+  .channel-word,
+  .channel-btn,
+  .channel-btn svg {
+    transition-property: background-size, color, background, border-color;
+  }
+  .channel:hover .channel-word,
+  .channel:focus-within .channel-word {
+    transform: none;
+  }
+}

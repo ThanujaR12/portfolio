@@ -1,18 +1,20 @@
-import Link from "next/link";
+import { ContactChannels, type Channel } from "@/components/site/ContactChannels";
 import { ContactForm } from "@/components/site/ContactForm";
 import type { Profile } from "@/lib/schemas";
 
-// "Let's build" closing section (spec 002 US2) with the contact form and direct links.
+// "Let's build" closing section (spec 002 US2): the contact form, then direct channels.
 export function ContactSection({ profile }: { profile: Profile }) {
-  const links = [
-    { label: "Email", value: profile.links.email, href: `mailto:${profile.links.email}` },
-    { label: "GitHub", value: profile.links.github.replace("https://", ""), href: profile.links.github },
+  const channels = ([
+    { label: "Email", value: profile.links.email, href: `mailto:${profile.links.email}`, copy: true },
     profile.links.linkedin && {
       label: "LinkedIn",
       value: profile.links.linkedin.replace(/^https:\/\/(www\.)?/, ""),
       href: profile.links.linkedin,
+      external: true,
     },
-  ].filter((l): l is { label: string; value: string; href: string } => Boolean(l));
+    { label: "GitHub", value: profile.links.github.replace("https://", ""), href: profile.links.github, external: true },
+    { label: "Resume", value: "View or download", href: "/resume" },
+  ] as (Channel | "" | null | undefined)[]).filter((c): c is Channel => Boolean(c));
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="relative isolate overflow-hidden px-4 py-24 sm:px-6 md:py-36">
@@ -32,28 +34,12 @@ export function ContactSection({ profile }: { profile: Profile }) {
             {new Intl.ListFormat("en", { type: "conjunction" }).format(profile.openTo.roles)}.
           </p>
         </header>
-        <div data-reveal className="mx-auto mt-14 grid max-w-5xl gap-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <div data-reveal className="mx-auto mt-14 max-w-3xl">
           <ContactForm fallbackEmail={profile.links.email} />
-          <ul className="flex flex-col gap-3">
-            {links.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  {...(!l.href.startsWith("mailto:") && { target: "_blank", rel: "noopener noreferrer" })}
-                  className="glass glow-hover block rounded-2xl p-5"
-                >
-                  <span className="eyebrow text-muted">{l.label}</span>
-                  <span className="mt-1.5 block truncate text-ink">{l.value}</span>
-                </a>
-              </li>
-            ))}
-            <li>
-              <Link href="/resume" className="glass glow-hover block rounded-2xl p-5">
-                <span className="eyebrow text-muted">Resume</span>
-                <span className="mt-1.5 block text-ink">View or download ↗</span>
-              </Link>
-            </li>
-          </ul>
+        </div>
+        <div data-reveal className="mt-24 md:mt-32">
+          <p className="eyebrow mb-6 text-muted">Or reach me directly</p>
+          <ContactChannels channels={channels} />
         </div>
       </div>
     </section>
