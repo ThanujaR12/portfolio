@@ -93,8 +93,18 @@ export function localAnswer(question: string, { profile, projects }: Pick<ChatCo
     );
   }
 
-  if (has(q, "looking", "next", "goal", "available", "hire", "hiring", "intern", "job", "role", "open to", "focus")) {
-    return reply(`${profile.currentFocus} The Contact section is the best way to reach ${first} about opportunities.`, []);
+  if (has(q, "looking", "next", "goal", "available", "hire", "hiring", "intern", "job", "role", "open to", "focus", "career", "aspir", "future")) {
+    // The bio's own "goal" sentence, rewritten in the third person, when there is one.
+    const goal = profile.bio
+      .replace(/\*\*/g, "")
+      .split(/(?<=\.)\s+/)
+      .find((s) => /\bgoal\b/i.test(s))
+      ?.replace(/^My /, `${first}'s `)
+      .replace(/\bme\b/g, first);
+    return reply(
+      `${goal ? `${goal} ` : ""}Right now: ${profile.currentFocus} The Contact section is the best way to reach ${first} about opportunities.`,
+      [],
+    );
   }
 
   if (has(q, "school", "university", "college", "study", "studies", "education", "degree", "background", "who is", "about")) {

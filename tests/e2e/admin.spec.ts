@@ -3,6 +3,7 @@ import path from "node:path";
 import AxeBuilder from "@axe-core/playwright";
 import { expect, type Page, test } from "@playwright/test";
 import sharp from "sharp";
+import { content } from "./content";
 
 // Runs in its own Playwright project after the others, because it edits content/ on disk
 // (CONTENT_SOURCE=fs). Everything it changes is restored afterwards.
@@ -104,7 +105,7 @@ test("owner hides, republishes and features a project from the board", async ({ 
   await boardAction(page, () => tile(page, "Published", "Campus Connect").getByRole("button", { name: "Hide" }).click());
   await expect(tile(page, "Hidden", "Campus Connect")).toBeVisible();
   await page.goto("/");
-  await expect(page.locator("#projects").getByRole("article")).toHaveCount(2);
+  await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.published - 1);
 
   await page.goto("/admin");
   await boardAction(page, () => tile(page, "Hidden", "Campus Connect").getByRole("button", { name: "Publish" }).click());
@@ -112,7 +113,7 @@ test("owner hides, republishes and features a project from the board", async ({ 
   await boardAction(page, () => page.getByRole("button", { name: "Feature Campus Connect" }).click());
   await expect(page.getByRole("button", { name: "Unfeature Campus Connect" })).toBeVisible();
   await page.goto("/");
-  await expect(page.locator("#featured").getByRole("article")).toHaveCount(3);
+  await expect(page.locator("#featured").getByRole("article")).toHaveCount(Math.min(3, content.featured + 1));
 });
 
 test("owner edits a case study with a screenshot and sees it live", async ({ page }) => {

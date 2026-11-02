@@ -85,7 +85,8 @@ describe("offline answers", () => {
   it("answers technology questions with the projects that use them", () => {
     const r = ask("Has Thanuja used React?");
     expect(r.text).toContain("React");
-    expect(r.slugs).toEqual(["paletteboard", "ai-business-assistant"]);
+    expect(r.slugs).toEqual(projects.filter((p) => p.technologies.includes("React")).map((p) => p.slug));
+    expect(r.slugs).toContain("paletteboard");
   });
 
   it("prefers the longer technology name (React Native over React)", () => {
@@ -97,7 +98,7 @@ describe("offline answers", () => {
   });
 
   it("points to featured work for 'strongest project'", () => {
-    expect(ask("What's Thanuja's strongest project?").slugs).toEqual(["paletteboard", "ai-business-assistant"]);
+    expect(ask("What's Thanuja's strongest project?").slugs).toEqual(projects.filter((p) => p.featured).map((p) => p.slug));
   });
 
   it("finds AI work", () => {
@@ -120,5 +121,14 @@ describe("memoryLimit", () => {
     expect(memoryLimit("t", w, 1000).ok).toBe(true);
     expect(memoryLimit("t", w, 2000)).toEqual({ ok: false, retryAfterSeconds: 58 });
     expect(memoryLimit("t", w, 61_000).ok).toBe(true);
+  });
+});
+
+describe("offline answers: career goals", () => {
+  it("states the goal from the bio in the third person, plus the current focus", () => {
+    const text = localAnswer("What are Thanuja's career goals?", { profile, projects });
+    expect(text).toContain("Thanuja's long-term goal is to lead engineering teams");
+    expect(text).toContain(profile.currentFocus);
+    expect(text).not.toMatch(/\bMy\b/);
   });
 });

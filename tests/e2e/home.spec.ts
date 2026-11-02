@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { content } from "./content";
 
 test.describe("home page (US1)", () => {
   test("hero shows who, what, and the main actions above the fold", async ({ page }) => {
@@ -20,7 +21,7 @@ test.describe("home page (US1)", () => {
   test("featured projects link to their case studies", async ({ page }) => {
     await page.goto("/");
     const featured = page.locator("#featured");
-    await expect(featured.getByRole("article")).toHaveCount(2);
+    await expect(featured.getByRole("article")).toHaveCount(content.featured);
     await featured.getByRole("link", { name: "PaletteBoard" }).click();
     await expect(page).toHaveURL(/\/projects\/paletteboard$/);
   });
@@ -28,24 +29,24 @@ test.describe("home page (US1)", () => {
   test("technology filter narrows the grid and is reflected in the URL", async ({ page }) => {
     await page.goto("/");
     const grid = page.locator("#projects");
-    await expect(grid.getByRole("article")).toHaveCount(3);
+    await expect(grid.getByRole("article")).toHaveCount(content.published);
     await grid.getByRole("button", { name: "Python", exact: true }).click();
     await expect(page).toHaveURL(/tech=Python/);
-    await expect(grid.getByRole("article")).toHaveCount(1);
+    await expect(grid.getByRole("article")).toHaveCount(content.usingTech("Python"));
     await grid.getByRole("button", { name: "All", exact: true }).click();
-    await expect(grid.getByRole("article")).toHaveCount(3);
+    await expect(grid.getByRole("article")).toHaveCount(content.published);
   });
 
   test("selecting a skill filters the project grid", async ({ page }) => {
     await page.goto("/");
     await page.locator("#skills").getByRole("link", { name: /^Expo/ }).click();
     await expect(page).toHaveURL(/tech=Expo/);
-    await expect(page.locator("#projects").getByRole("article")).toHaveCount(1);
+    await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.usingTech("Expo"));
   });
 
   test("a filtered URL can be shared", async ({ page }) => {
     await page.goto("/?tech=React#projects");
-    await expect(page.locator("#projects").getByRole("article")).toHaveCount(2);
+    await expect(page.locator("#projects").getByRole("article")).toHaveCount(content.usingTech("React"));
   });
 
   test("has no detectable accessibility violations", async ({ page }) => {
