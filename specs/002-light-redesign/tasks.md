@@ -24,3 +24,14 @@ fields (`statement`, `openTo`, `location`) with defaults, so existing content ke
 - Caught during build: `profilePatchSchema` derived from the defaulted schema injected defaults into partial
   admin updates (would have reset the statement on any profile save); fixed by deriving it from a
   default-free base, with a regression test.
+
+## Addendum tasks — name intro
+
+- [x] R013 `ResolvingName` client component (no layout shift, reduced-motion aware, sr-only real name)
+- [x] R014 `NameIntro` first screen: aurora, horizon line, roles, degree, buttons, scroll cue; statement hero → `#intro`, `h2`
+- [x] R015 Tests (h1 is the name; statement h2; reduced motion shows final name) + Lighthouse ≥ 90 + deploy
+
+### Addendum validation (2026-11-02)
+
+- Unit 55 passed; E2E 69 passed + 1 flaky-on-retry (adds: name is h1, scroll cue → #intro, reduced motion shows the name, no-JS shows the name).
+- Lighthouse mobile: `/` performance 95 (name hidden until the resolve starts), all other pages 99–100; accessibility, best practices, SEO 100 everywhere.

@@ -68,3 +68,16 @@ then skills, then a closing "Let's build" section with the contact form and link
 
 - Light only; the dark "deep-space" theme is retired.
 - Layout patterns are inspired by the reference, but imagery, copy and visual identity are original.
+
+## Addendum — Name intro screen (2026-11-02)
+
+**Input**: "Make a home page that is mainly my name like the example… an extra page in the beginning
+that emphasizes my name in big with the design elements uniquely incorporated so they know it is MY portfolio."
+
+- Q: Placement? → A: First full screen of the home page; scrolling (or the cue) continues to the statement hero. (Recommended; owner deferred.)
+- Q: Name style? → A: AI "resolve": letters cycle through random characters then settle left-to-right in ~1.2 s, unsettled letters in the AI accent; aurora behind; glowing AI-gradient horizon line under the name. Real text for assistive tech/search; no animation under reduced motion; no layout shift.
+- Q: Under the name? → A: Roles (from Open-to) as an eyebrow, degree line, "Get in touch" + "View projects" buttons, "Scroll" cue.
+
+- **FR-108** The name is the page's `h1`; the statement hero heading becomes `h2`.
+- **FR-109** The resolve animation never shifts layout and is skipped under `prefers-reduced-motion`; without JavaScript the name shows immediately.
+- **SC-104** Lighthouse mobile on `/` stays ≥ 90 performance with the intro screen.

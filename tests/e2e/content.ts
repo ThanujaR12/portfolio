@@ -16,5 +16,6 @@ export const content = {
   /** Home "Selected work": featured topped up to three. */
   selected: Math.min(3, projects.length),
   openTo: profile.openTo.term,
+  roles: profile.openTo.roles.join(" · "),
   usingTech: (tech: string) => projects.filter((p) => p.technologies.includes(tech)).length,
 };

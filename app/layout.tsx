@@ -28,8 +28,14 @@ export const viewport: Viewport = { themeColor: "#fbfbfd" };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { profile } = await getPortfolio();
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+      // The inline script below adds a "js" class before React hydrates.
+      suppressHydrationWarning
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add(\"js\")" }} />
         {/* Without JavaScript, scroll-reveal content must still be visible. */}
         <noscript>
           <style>{"[data-reveal]{opacity:1!important;transform:none!important}"}</style>

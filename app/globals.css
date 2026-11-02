@@ -208,3 +208,29 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Name intro (spec 002 addendum). With JS, the name stays hidden until ResolvingName has
+   mounted, so visitors never see it flash before the resolve starts. Without JS (no .js
+   class) or under reduced motion it is visible immediately. */
+.js .name-resolve:not([data-ready]) {
+  visibility: hidden;
+}
+.scroll-cue > span {
+  animation: scroll-cue 1.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .name-resolve:not([data-ready]) {
+    visibility: visible;
+  }
+  .scroll-cue > span {
+    animation: none;
+  }
+}

@@ -1,5 +1,6 @@
 import { ContactSection } from "@/components/site/ContactSection";
 import { Hero } from "@/components/site/Hero";
+import { NameIntro } from "@/components/site/NameIntro";
 import { JourneySection } from "@/components/site/JourneySection";
 import { SelectedWork } from "@/components/site/SelectedWork";
 import { SkillsSection } from "@/components/site/SkillsSection";
@@ -7,7 +8,7 @@ import { getPortfolio } from "@/lib/content/portfolio";
 
 export const revalidate = 3600;
 
-// Home (spec 002): Hero → Journey → Selected work → Skills → Let's build.
+// Home (spec 002): Name intro → Statement hero → Journey → Selected work → Skills → Let's build.
 export default async function HomePage() {
   const { profile, selected, skills, technologies, journey } = await getPortfolio();
 
@@ -29,6 +30,7 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }}
       />
+      <NameIntro profile={profile} />
       <Hero profile={profile} />
       <JourneySection journey={journey} />
       <SelectedWork projects={selected} />

@@ -3,21 +3,33 @@ import { expect, test } from "@playwright/test";
 import { content } from "./content";
 
 test.describe("home page (spec 002)", () => {
-  test("hero shows the statement, actions, Ask AI and the Currently card above the fold", async ({ page, isMobile }) => {
+  test("first screen is the name, with roles, actions and a scroll cue", async ({ page }) => {
     await page.goto("/");
     const viewport = page.viewportSize()!;
+    const name = page.getByRole("heading", { level: 1, name: "Thanuja Rameshbaabu" });
     const aboveFold = [
-      page.getByRole("heading", { level: 1 }),
-      page.getByRole("link", { name: /more about me/i }),
-      page.getByRole("textbox", { name: /ask about/i }),
-      ...(isMobile ? [] : [page.getByRole("complementary", { name: "Currently" })]),
+      name,
+      page.getByRole("link", { name: "Get in touch" }).first(),
+      page.getByRole("link", { name: "View projects" }),
+      page.getByRole("link", { name: /scroll to the introduction/i }),
     ];
     for (const locator of aboveFold) {
       await expect(locator).toBeVisible();
       const box = (await locator.boundingBox())!;
       expect(box.y + box.height).toBeLessThanOrEqual(viewport.height);
     }
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("AI-powered products");
+    await expect(page.locator("section[aria-labelledby=name-title]").getByText(content.roles)).toBeVisible();
+    // The resolve animation settles on the real name.
+    await expect(page.locator(".name-resolve")).toHaveText(/THANUJA\s*RAMESHBAABU/i, { timeout: 5000 });
+  });
+
+  test("scrolling on reaches the statement, Ask AI and the Currently card", async ({ page, isMobile }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: /scroll to the introduction/i }).click();
+    await expect(page).toHaveURL(/#intro$/);
+    await expect(page.getByRole("heading", { level: 2, name: /AI-powered products/ })).toBeInViewport();
+    await expect(page.getByRole("textbox", { name: /ask about/i })).toBeVisible();
+    if (!isMobile) await expect(page.getByRole("complementary", { name: "Currently" })).toBeInViewport();
     await expect(page.getByText(/Thanuja Rameshbaabu · Vanderbilt/)).toBeVisible();
   });
 
@@ -97,11 +109,20 @@ test("icon navigation has accessible names and marks the current page", async ({
   await expect(nav.getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "page");
 });
 
-test("reduced motion stops the aurora", async ({ browser }) => {
+test("reduced motion stops the aurora and shows the name without scrambling", async ({ browser }) => {
   const context = await browser.newContext({ reducedMotion: "reduce", baseURL: "http://localhost:3000" });
   const page = await context.newPage();
   await page.goto("/");
   const animation = await page.locator(".aurora span").first().evaluate((el) => getComputedStyle(el).animationName);
   expect(animation).toBe("none");
+  await expect(page.locator(".name-resolve")).toHaveText(/THANUJA\s*RAMESHBAABU/i, { timeout: 1000 });
+  await context.close();
+});
+
+test("without JavaScript the name is visible immediately", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL: "http://localhost:3000" });
+  const page = await context.newPage();
+  await page.goto("/");
+  await expect(page.locator(".name-resolve")).toBeVisible();
   await context.close();
 });

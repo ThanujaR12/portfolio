@@ -175,8 +175,9 @@ test("owner edits the hero statement without losing other hero fields", async ({
   await page.getByRole("button", { name: "Save profile" }).click();
   await expect(page.getByRole("status").filter({ hasText: "Saved" })).toBeVisible();
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("I build careful software for real people.");
-  await expect(page.getByRole("heading", { level: 1 }).locator("strong")).toHaveText("careful software");
+  const statement = page.locator("#hero-title");
+  await expect(statement).toHaveText("I build careful software for real people.");
+  await expect(statement.locator("strong")).toHaveText("careful software");
   await expect(page.getByRole("complementary", { name: "Currently" })).toContainText(content.openTo);
 });
 
